@@ -1,0 +1,1055 @@
+{
+  "manifest_version": 1,
+  "type": "device",
+  "name": "Last.fm",
+  "description": {
+    "en": "What you listen to on Last.fm: scrobbles, music scenes and widgets.",
+    "fr": "Vos écoutes Last.fm : scrobbles, scènes musicales et widgets."
+  },
+  "version": "0.1.0",
+  "docker_image": "ghcr.io/william-de71/gladys-lastfm:0.1.0",
+  "gladys_version": ">=5.1.1",
+  "categories": ["multimedia"],
+  "cover_image": "https://raw.githubusercontent.com/William-De71/gladys-lastfm/main/cover.jpg",
+  "transports": ["cloud"],
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "Last.fm API key",
+        "fr": "Clé d’API Last.fm"
+      },
+      "description": {
+        "en": "Last.fm records what you listen to on Spotify, Deezer, Apple Music, YouTube Music, Plex and many more. Reading your listening needs a free API key: create an API account on Last.fm (any application name; the callback URL can stay empty), then copy its API key and shared secret below.",
+        "fr": "Last.fm enregistre ce que vous écoutez sur Spotify, Deezer, Apple Music, YouTube Music, Plex et bien d’autres. Lire vos écoutes nécessite une clé d’API gratuite : créez un compte d’API sur Last.fm (nom d’application libre ; l’URL de callback peut rester vide), puis copiez ci-dessous sa clé d’API et son secret partagé."
+      },
+      "links": [
+        {
+          "url": "https://www.last.fm/api/account/create",
+          "label": {
+            "en": "Create an API account",
+            "fr": "Créer un compte d’API"
+          }
+        },
+        {
+          "url": "https://www.last.fm/api/accounts",
+          "label": {
+            "en": "My API accounts",
+            "fr": "Mes comptes d’API"
+          }
+        }
+      ]
+    },
+    {
+      "key": "api_key",
+      "type": "secret",
+      "label": {
+        "en": "API key",
+        "fr": "Clé d’API"
+      },
+      "description": {
+        "en": "32 characters.",
+        "fr": "32 caractères."
+      },
+      "required": true
+    },
+    {
+      "key": "shared_secret",
+      "type": "secret",
+      "label": {
+        "en": "Shared secret",
+        "fr": "Secret partagé"
+      },
+      "description": {
+        "en": "Only needed to link an account (to love tracks).",
+        "fr": "Nécessaire uniquement pour lier un compte (aimer des titres)."
+      },
+      "required": false
+    },
+    {
+      "key": "usernames",
+      "type": "string",
+      "label": {
+        "en": "Profiles to follow",
+        "fr": "Profils à suivre"
+      },
+      "description": {
+        "en": "Last.fm usernames, separated by commas (10 at most). Each one becomes a device on the Discovery screen.",
+        "fr": "Noms d’utilisateur Last.fm, séparés par des virgules (10 au maximum). Chacun devient un appareil dans l’écran de découverte."
+      },
+      "placeholder": {
+        "en": "rj, my_friend",
+        "fr": "rj, mon_ami"
+      },
+      "required": true
+    },
+    {
+      "key": "poll_interval",
+      "type": "number",
+      "label": {
+        "en": "Refresh interval (s)",
+        "fr": "Intervalle de lecture (s)"
+      },
+      "description": {
+        "en": "How often the profiles are read, between 15 and 300 seconds. Last.fm has no push: this is the delay of the scenes.",
+        "fr": "Fréquence de lecture des profils, entre 15 et 300 secondes. Last.fm ne pousse rien : c’est le délai de réaction des scènes."
+      },
+      "min": 15,
+      "max": 300,
+      "default": 30,
+      "required": false
+    },
+    {
+      "key": "account_intro",
+      "type": "section",
+      "label": {
+        "en": "Link your account (optional)",
+        "fr": "Lier votre compte (optionnel)"
+      },
+      "description": {
+        "en": "Only needed to love or unlove tracks from Gladys (widget button, scene actions). Fill in the shared secret and save first, then click Connect and approve the access on the Last.fm page that opens. Gladys detects the approval within a few seconds.",
+        "fr": "Nécessaire uniquement pour aimer ou ne plus aimer des titres depuis Gladys (bouton du widget, actions de scène). Renseignez d’abord le secret partagé et enregistrez, puis cliquez sur Connecter et autorisez l’accès sur la page Last.fm qui s’ouvre. Gladys détecte l’autorisation en quelques secondes."
+      }
+    },
+    {
+      "key": "account",
+      "type": "account_link",
+      "label": {
+        "en": "Last.fm account",
+        "fr": "Compte Last.fm"
+      }
+    }
+  ],
+  "actions": [
+    {
+      "key": "test_connection",
+      "label": {
+        "en": "Test the connection",
+        "fr": "Tester la connexion"
+      },
+      "description": {
+        "en": "Checks the API key and reads every followed profile.",
+        "fr": "Vérifie la clé d’API et lit chaque profil suivi."
+      },
+      "timeout_seconds": 60
+    },
+    {
+      "key": "unlink_account",
+      "label": {
+        "en": "Unlink the account",
+        "fr": "Délier le compte"
+      },
+      "description": {
+        "en": "Forgets the session of the linked Last.fm account.",
+        "fr": "Oublie la session du compte Last.fm lié."
+      },
+      "timeout_seconds": 15
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "track_started",
+      "label": {
+        "en": "Last.fm: new track",
+        "fr": "Last.fm : nouveau titre"
+      },
+      "description": {
+        "en": "A profile starts playing a track. Checked every 30 seconds by default.",
+        "fr": "Un profil commence à écouter un titre. Vérifié toutes les 30 secondes par défaut."
+      },
+      "fields": [
+        {
+          "key": "user",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Profile",
+            "fr": "Profil"
+          },
+          "description": {
+            "en": "One of the Last.fm devices. Leave empty for any profile.",
+            "fr": "Un des appareils Last.fm. Laissez vide pour tous les profils."
+          },
+          "required": false
+        },
+        {
+          "key": "artist",
+          "type": "string",
+          "label": {
+            "en": "Artist",
+            "fr": "Artiste"
+          },
+          "description": {
+            "en": "Exactly as Last.fm spells it (case-sensitive). Leave empty for any artist.",
+            "fr": "Exactement comme Last.fm l’écrit (majuscules comprises). Laissez vide pour tous les artistes."
+          },
+          "required": false
+        }
+      ],
+      "variables": [
+        {
+          "key": "user_name",
+          "type": "string",
+          "label": {
+            "en": "Username",
+            "fr": "Nom d’utilisateur"
+          }
+        },
+        {
+          "key": "artist",
+          "type": "string",
+          "label": {
+            "en": "Artist",
+            "fr": "Artiste"
+          }
+        },
+        {
+          "key": "track",
+          "type": "string",
+          "label": {
+            "en": "Track",
+            "fr": "Titre"
+          }
+        },
+        {
+          "key": "album",
+          "type": "string",
+          "label": {
+            "en": "Album",
+            "fr": "Album"
+          }
+        },
+        {
+          "key": "loved",
+          "type": "boolean",
+          "label": {
+            "en": "Loved",
+            "fr": "Coup de cœur"
+          }
+        },
+        {
+          "key": "url",
+          "type": "string",
+          "label": {
+            "en": "Last.fm link",
+            "fr": "Lien Last.fm"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé"
+          },
+          "description": {
+            "en": "A sentence ready to put in a message.",
+            "fr": "Une phrase prête à mettre dans un message."
+          }
+        }
+      ]
+    },
+    {
+      "key": "listening_started",
+      "label": {
+        "en": "Last.fm: listening started",
+        "fr": "Last.fm : début d’écoute"
+      },
+      "description": {
+        "en": "A profile starts listening after a pause.",
+        "fr": "Un profil se met à écouter après une pause."
+      },
+      "fields": [
+        {
+          "key": "user",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Profile",
+            "fr": "Profil"
+          },
+          "description": {
+            "en": "One of the Last.fm devices. Leave empty for any profile.",
+            "fr": "Un des appareils Last.fm. Laissez vide pour tous les profils."
+          },
+          "required": false
+        }
+      ],
+      "variables": [
+        {
+          "key": "user_name",
+          "type": "string",
+          "label": {
+            "en": "Username",
+            "fr": "Nom d’utilisateur"
+          }
+        },
+        {
+          "key": "artist",
+          "type": "string",
+          "label": {
+            "en": "Artist",
+            "fr": "Artiste"
+          }
+        },
+        {
+          "key": "track",
+          "type": "string",
+          "label": {
+            "en": "Track",
+            "fr": "Titre"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé"
+          },
+          "description": {
+            "en": "A sentence ready to put in a message.",
+            "fr": "Une phrase prête à mettre dans un message."
+          }
+        }
+      ]
+    },
+    {
+      "key": "listening_stopped",
+      "label": {
+        "en": "Last.fm: listening stopped",
+        "fr": "Last.fm : fin d’écoute"
+      },
+      "description": {
+        "en": "Nothing has been playing for two checks in a row.",
+        "fr": "Plus rien n’est joué depuis deux vérifications de suite."
+      },
+      "fields": [
+        {
+          "key": "user",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Profile",
+            "fr": "Profil"
+          },
+          "description": {
+            "en": "One of the Last.fm devices. Leave empty for any profile.",
+            "fr": "Un des appareils Last.fm. Laissez vide pour tous les profils."
+          },
+          "required": false
+        }
+      ],
+      "variables": [
+        {
+          "key": "user_name",
+          "type": "string",
+          "label": {
+            "en": "Username",
+            "fr": "Nom d’utilisateur"
+          }
+        },
+        {
+          "key": "artist",
+          "type": "string",
+          "label": {
+            "en": "Last artist",
+            "fr": "Dernier artiste"
+          }
+        },
+        {
+          "key": "track",
+          "type": "string",
+          "label": {
+            "en": "Last track",
+            "fr": "Dernier titre"
+          }
+        },
+        {
+          "key": "duration_minutes",
+          "type": "number",
+          "label": {
+            "en": "Session length (min)",
+            "fr": "Durée de la session (min)"
+          }
+        },
+        {
+          "key": "tracks_played",
+          "type": "number",
+          "label": {
+            "en": "Tracks played",
+            "fr": "Titres joués"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé"
+          },
+          "description": {
+            "en": "A sentence ready to put in a message.",
+            "fr": "Une phrase prête à mettre dans un message."
+          }
+        }
+      ]
+    },
+    {
+      "key": "track_loved",
+      "label": {
+        "en": "Last.fm: track loved",
+        "fr": "Last.fm : titre aimé"
+      },
+      "description": {
+        "en": "A profile loves a track, on Last.fm or in a connected player.",
+        "fr": "Un profil aime un titre, sur Last.fm ou dans un lecteur connecté."
+      },
+      "fields": [
+        {
+          "key": "user",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Profile",
+            "fr": "Profil"
+          },
+          "description": {
+            "en": "One of the Last.fm devices. Leave empty for any profile.",
+            "fr": "Un des appareils Last.fm. Laissez vide pour tous les profils."
+          },
+          "required": false
+        },
+        {
+          "key": "artist",
+          "type": "string",
+          "label": {
+            "en": "Artist",
+            "fr": "Artiste"
+          },
+          "description": {
+            "en": "Exactly as Last.fm spells it (case-sensitive). Leave empty for any artist.",
+            "fr": "Exactement comme Last.fm l’écrit (majuscules comprises). Laissez vide pour tous les artistes."
+          },
+          "required": false
+        }
+      ],
+      "variables": [
+        {
+          "key": "user_name",
+          "type": "string",
+          "label": {
+            "en": "Username",
+            "fr": "Nom d’utilisateur"
+          }
+        },
+        {
+          "key": "artist",
+          "type": "string",
+          "label": {
+            "en": "Artist",
+            "fr": "Artiste"
+          }
+        },
+        {
+          "key": "track",
+          "type": "string",
+          "label": {
+            "en": "Track",
+            "fr": "Titre"
+          }
+        },
+        {
+          "key": "url",
+          "type": "string",
+          "label": {
+            "en": "Last.fm link",
+            "fr": "Lien Last.fm"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé"
+          },
+          "description": {
+            "en": "A sentence ready to put in a message.",
+            "fr": "Une phrase prête à mettre dans un message."
+          }
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "get_now_playing",
+      "label": {
+        "en": "Last.fm: what is playing",
+        "fr": "Last.fm : titre en cours"
+      },
+      "description": {
+        "en": "The track a profile is listening to, or the last one played.",
+        "fr": "Le titre qu’un profil écoute, ou le dernier écouté."
+      },
+      "timeout_seconds": 20,
+      "fields": [
+        {
+          "key": "user",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Profile",
+            "fr": "Profil"
+          },
+          "description": {
+            "en": "Leave empty for the first followed profile.",
+            "fr": "Laissez vide pour le premier profil suivi."
+          },
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "key": "user_name",
+          "type": "string",
+          "label": {
+            "en": "Username",
+            "fr": "Nom d’utilisateur"
+          }
+        },
+        {
+          "key": "playing",
+          "type": "boolean",
+          "label": {
+            "en": "Listening now",
+            "fr": "En écoute"
+          }
+        },
+        {
+          "key": "artist",
+          "type": "string",
+          "label": {
+            "en": "Artist",
+            "fr": "Artiste"
+          }
+        },
+        {
+          "key": "track",
+          "type": "string",
+          "label": {
+            "en": "Track",
+            "fr": "Titre"
+          }
+        },
+        {
+          "key": "album",
+          "type": "string",
+          "label": {
+            "en": "Album",
+            "fr": "Album"
+          }
+        },
+        {
+          "key": "loved",
+          "type": "boolean",
+          "label": {
+            "en": "Loved",
+            "fr": "Coup de cœur"
+          }
+        },
+        {
+          "key": "url",
+          "type": "string",
+          "label": {
+            "en": "Last.fm link",
+            "fr": "Lien Last.fm"
+          }
+        },
+        {
+          "key": "played_at",
+          "type": "string",
+          "label": {
+            "en": "Played at (empty while playing)",
+            "fr": "Écouté le (vide pendant l’écoute)"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé"
+          },
+          "description": {
+            "en": "A sentence ready to put in a message.",
+            "fr": "Une phrase prête à mettre dans un message."
+          }
+        }
+      ]
+    },
+    {
+      "key": "get_stats",
+      "label": {
+        "en": "Last.fm: listening statistics",
+        "fr": "Last.fm : statistiques d’écoute"
+      },
+      "description": {
+        "en": "Scrobbles of the day and in total, top artist, album and track.",
+        "fr": "Scrobbles du jour et au total, artiste, album et titre préférés."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "user",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Profile",
+            "fr": "Profil"
+          },
+          "description": {
+            "en": "Leave empty for the first followed profile.",
+            "fr": "Laissez vide pour le premier profil suivi."
+          },
+          "required": false
+        },
+        {
+          "key": "period",
+          "type": "select",
+          "label": {
+            "en": "Period of the tops",
+            "fr": "Période des tops"
+          },
+          "options": [
+            {
+              "value": "7day",
+              "label": {
+                "en": "Last 7 days",
+                "fr": "7 derniers jours"
+              }
+            },
+            {
+              "value": "1month",
+              "label": {
+                "en": "Last month",
+                "fr": "Dernier mois"
+              }
+            },
+            {
+              "value": "3month",
+              "label": {
+                "en": "Last 3 months",
+                "fr": "3 derniers mois"
+              }
+            },
+            {
+              "value": "6month",
+              "label": {
+                "en": "Last 6 months",
+                "fr": "6 derniers mois"
+              }
+            },
+            {
+              "value": "12month",
+              "label": {
+                "en": "Last 12 months",
+                "fr": "12 derniers mois"
+              }
+            },
+            {
+              "value": "overall",
+              "label": {
+                "en": "All time",
+                "fr": "Depuis toujours"
+              }
+            }
+          ],
+          "default": "7day",
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "key": "user_name",
+          "type": "string",
+          "label": {
+            "en": "Username",
+            "fr": "Nom d’utilisateur"
+          }
+        },
+        {
+          "key": "scrobbles_today",
+          "type": "number",
+          "label": {
+            "en": "Scrobbles today",
+            "fr": "Scrobbles du jour"
+          }
+        },
+        {
+          "key": "scrobbles_total",
+          "type": "number",
+          "label": {
+            "en": "Total scrobbles",
+            "fr": "Scrobbles au total"
+          }
+        },
+        {
+          "key": "top_artist",
+          "type": "string",
+          "label": {
+            "en": "Top artist",
+            "fr": "Artiste préféré"
+          }
+        },
+        {
+          "key": "top_artist_plays",
+          "type": "number",
+          "label": {
+            "en": "Top artist: plays",
+            "fr": "Artiste préféré : écoutes"
+          }
+        },
+        {
+          "key": "top_album",
+          "type": "string",
+          "label": {
+            "en": "Top album",
+            "fr": "Album préféré"
+          }
+        },
+        {
+          "key": "top_track",
+          "type": "string",
+          "label": {
+            "en": "Top track",
+            "fr": "Titre préféré"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé"
+          },
+          "description": {
+            "en": "A sentence ready to put in a message.",
+            "fr": "Une phrase prête à mettre dans un message."
+          }
+        }
+      ]
+    },
+    {
+      "key": "love_track",
+      "label": {
+        "en": "Last.fm: love a track",
+        "fr": "Last.fm : aimer un titre"
+      },
+      "description": {
+        "en": "Adds a track to the loved tracks of the linked account.",
+        "fr": "Ajoute un titre aux coups de cœur du compte lié."
+      },
+      "timeout_seconds": 20,
+      "fields": [
+        {
+          "key": "artist",
+          "type": "string",
+          "label": {
+            "en": "Artist",
+            "fr": "Artiste"
+          },
+          "description": {
+            "en": "Leave artist and track empty for the track playing now (or the last one played) on the linked account. Scene variables accepted.",
+            "fr": "Laissez artiste et titre vides pour le titre en cours (ou le dernier écouté) du compte lié. Variables de scène acceptées."
+          },
+          "required": false
+        },
+        {
+          "key": "track",
+          "type": "string",
+          "label": {
+            "en": "Track",
+            "fr": "Titre"
+          },
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "key": "artist",
+          "type": "string",
+          "label": {
+            "en": "Artist",
+            "fr": "Artiste"
+          }
+        },
+        {
+          "key": "track",
+          "type": "string",
+          "label": {
+            "en": "Track",
+            "fr": "Titre"
+          }
+        }
+      ]
+    },
+    {
+      "key": "unlove_track",
+      "label": {
+        "en": "Last.fm: unlove a track",
+        "fr": "Last.fm : ne plus aimer un titre"
+      },
+      "description": {
+        "en": "Removes a track from the loved tracks of the linked account.",
+        "fr": "Retire un titre des coups de cœur du compte lié."
+      },
+      "timeout_seconds": 20,
+      "fields": [
+        {
+          "key": "artist",
+          "type": "string",
+          "label": {
+            "en": "Artist",
+            "fr": "Artiste"
+          },
+          "description": {
+            "en": "Leave artist and track empty for the track playing now (or the last one played) on the linked account. Scene variables accepted.",
+            "fr": "Laissez artiste et titre vides pour le titre en cours (ou le dernier écouté) du compte lié. Variables de scène acceptées."
+          },
+          "required": false
+        },
+        {
+          "key": "track",
+          "type": "string",
+          "label": {
+            "en": "Track",
+            "fr": "Titre"
+          },
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "key": "artist",
+          "type": "string",
+          "label": {
+            "en": "Artist",
+            "fr": "Artiste"
+          }
+        },
+        {
+          "key": "track",
+          "type": "string",
+          "label": {
+            "en": "Track",
+            "fr": "Titre"
+          }
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "key": "now_playing",
+      "label": {
+        "en": "Last.fm now playing",
+        "fr": "Last.fm en écoute"
+      },
+      "description": {
+        "en": "The track playing now with its cover, scrobble counters and a Love button.",
+        "fr": "Le titre en cours avec sa pochette, les compteurs et un bouton J’aime."
+      },
+      "icon": "music",
+      "settings": [
+        {
+          "key": "user",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Profile",
+            "fr": "Profil"
+          },
+          "description": {
+            "en": "Leave empty for the first followed profile.",
+            "fr": "Laissez vide pour le premier profil suivi."
+          },
+          "required": false
+        }
+      ]
+    },
+    {
+      "key": "recent_tracks",
+      "label": {
+        "en": "Last.fm recent tracks",
+        "fr": "Last.fm écoutes récentes"
+      },
+      "description": {
+        "en": "The latest scrobbles with their covers.",
+        "fr": "Les derniers scrobbles avec leurs pochettes."
+      },
+      "icon": "list",
+      "settings": [
+        {
+          "key": "user",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Profile",
+            "fr": "Profil"
+          },
+          "description": {
+            "en": "Leave empty for the first followed profile.",
+            "fr": "Laissez vide pour le premier profil suivi."
+          },
+          "required": false
+        },
+        {
+          "key": "count",
+          "type": "number",
+          "label": {
+            "en": "Tracks shown",
+            "fr": "Titres affichés"
+          },
+          "min": 1,
+          "max": 8,
+          "default": 5,
+          "required": false
+        }
+      ]
+    },
+    {
+      "key": "top_charts",
+      "label": {
+        "en": "Last.fm top charts",
+        "fr": "Last.fm tops"
+      },
+      "description": {
+        "en": "Top artists, albums or tracks over a period.",
+        "fr": "Top artistes, albums ou titres sur une période."
+      },
+      "icon": "award",
+      "settings": [
+        {
+          "key": "user",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Profile",
+            "fr": "Profil"
+          },
+          "description": {
+            "en": "Leave empty for the first followed profile.",
+            "fr": "Laissez vide pour le premier profil suivi."
+          },
+          "required": false
+        },
+        {
+          "key": "kind",
+          "type": "select",
+          "label": {
+            "en": "Chart",
+            "fr": "Classement"
+          },
+          "options": [
+            {
+              "value": "artists",
+              "label": {
+                "en": "Artists",
+                "fr": "Artistes"
+              }
+            },
+            {
+              "value": "albums",
+              "label": {
+                "en": "Albums (cover grid)",
+                "fr": "Albums (grille de pochettes)"
+              }
+            },
+            {
+              "value": "tracks",
+              "label": {
+                "en": "Tracks",
+                "fr": "Titres"
+              }
+            }
+          ],
+          "default": "artists",
+          "required": false
+        },
+        {
+          "key": "period",
+          "type": "select",
+          "label": {
+            "en": "Period",
+            "fr": "Période"
+          },
+          "options": [
+            {
+              "value": "7day",
+              "label": {
+                "en": "Last 7 days",
+                "fr": "7 derniers jours"
+              }
+            },
+            {
+              "value": "1month",
+              "label": {
+                "en": "Last month",
+                "fr": "Dernier mois"
+              }
+            },
+            {
+              "value": "3month",
+              "label": {
+                "en": "Last 3 months",
+                "fr": "3 derniers mois"
+              }
+            },
+            {
+              "value": "6month",
+              "label": {
+                "en": "Last 6 months",
+                "fr": "6 derniers mois"
+              }
+            },
+            {
+              "value": "12month",
+              "label": {
+                "en": "Last 12 months",
+                "fr": "12 derniers mois"
+              }
+            },
+            {
+              "value": "overall",
+              "label": {
+                "en": "All time",
+                "fr": "Depuis toujours"
+              }
+            }
+          ],
+          "default": "7day",
+          "required": false
+        },
+        {
+          "key": "count",
+          "type": "number",
+          "label": {
+            "en": "Entries shown",
+            "fr": "Entrées affichées"
+          },
+          "description": {
+            "en": "Up to 12 for albums, 8 otherwise.",
+            "fr": "Jusqu’à 12 pour les albums, 8 sinon."
+          },
+          "min": 1,
+          "max": 12,
+          "default": 6,
+          "required": false
+        }
+      ]
+    }
+  ]
+}
