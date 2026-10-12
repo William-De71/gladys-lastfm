@@ -16,12 +16,13 @@ Last.fm enregistre (« scrobble ») chaque titre écouté sur Spotify, Deezer, A
 
 ### 2. Renseigner l'intégration
 
-| Champ                     | Rôle                                                                                               |
-| ------------------------- | -------------------------------------------------------------------------------------------------- |
-| **Clé d'API**             | obligatoire                                                                                        |
-| **Secret partagé**        | uniquement pour lier un compte (aimer des titres depuis Gladys)                                    |
-| **Profils à suivre**      | noms d'utilisateur Last.fm séparés par des virgules (10 au maximum) : le vôtre, celui d'un proche… |
-| **Intervalle de lecture** | 30 secondes par défaut (de 15 à 300) : c'est le délai de réaction des scènes                       |
+| Champ                     | Rôle                                                                                                                       |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **Clé d'API**             | obligatoire                                                                                                                |
+| **Secret partagé**        | uniquement pour lier un compte (aimer des titres depuis Gladys)                                                            |
+| **Profils à suivre**      | noms d'utilisateur Last.fm séparés par des virgules (10 au maximum) : le vôtre, celui d'un proche…                         |
+| **Intervalle de lecture** | 30 secondes par défaut (de 15 à 300) : c'est le délai de réaction des scènes                                               |
+| **Langue des textes**     | noms des appareils et résumés des scènes ; _Automatique_ suit votre tableau de bord dès qu'un widget Last.fm a été affiché |
 
 Enregistrez. Le bouton **Tester la connexion** vérifie la clé et lit chaque profil.
 

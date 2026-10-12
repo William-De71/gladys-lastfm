@@ -1,0 +1,115 @@
+# Last.fm
+
+Esta integración lleva tus **escuchas de Last.fm** a Gladys: lo que estás escuchando ahora mismo, tus scrobbles, escenas que reaccionan a la música y tres widgets para el panel.
+
+Last.fm registra («scrobblea») cada canción reproducida en Spotify, Deezer, Apple Music, YouTube Music, Tidal, Plex, Sonos y muchos otros reproductores. Da igual el reproductor: si tus escuchas llegan a tu perfil de Last.fm, Gladys las ve.
+
+> Integración de la comunidad, sin relación con Last.fm.
+
+## Configuración
+
+### 1. Crear una clave de API (gratuita)
+
+1. Inicia sesión en Last.fm y abre [Crear una cuenta de API](https://www.last.fm/api/account/create).
+2. Escribe un nombre de aplicación (por ejemplo «Gladys») y una descripción. La **URL de callback puede quedar vacía**.
+3. Last.fm muestra una **clave de API** (32 caracteres) y un **secreto compartido**. Puedes volver a consultarlos en cualquier momento en [Mis cuentas de API](https://www.last.fm/api/accounts).
+
+### 2. Rellenar la integración
+
+| Campo                    | Para qué sirve                                                                                                                |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| **Clave de API**         | obligatoria                                                                                                                   |
+| **Secreto compartido**   | solo para vincular una cuenta (marcar canciones como favoritas desde Gladys)                                                  |
+| **Perfiles a seguir**    | nombres de usuario de Last.fm separados por comas (10 como máximo): el tuyo, el de un familiar…                               |
+| **Intervalo de lectura** | 30 segundos por defecto (de 15 a 300): es el tiempo de reacción de las escenas                                                |
+| **Idioma de los textos** | nombres de los dispositivos y resúmenes de las escenas; _Automático_ sigue tu panel en cuanto se muestra un widget de Last.fm |
+
+Guarda. El botón **Probar la conexión** comprueba la clave y lee cada perfil.
+
+Un perfil que **oculta sus escuchas recientes** (ajustes de privacidad de Last.fm) no se puede seguir: Last.fm se niega a compartirlas.
+
+### 3. Añadir los dispositivos
+
+En la pestaña **Descubrir**, cada perfil seguido aparece como un dispositivo «Last.fm – _nombre_». Añádelo y asígnale una habitación. Los widgets y las escenas también funcionan sin dispositivo, pero el perfil se elige en sus ajustes a través de la lista de dispositivos.
+
+### 4. Vincular tu cuenta (opcional)
+
+Solo para **marcar o desmarcar canciones como favoritas** desde Gladys (botón del widget, acciones de escena):
+
+1. rellena el **secreto compartido** y guarda;
+2. haz clic en **Conectar**: se abre una página de Last.fm;
+3. haz clic en **Sí, permitir el acceso**. Gladys lo detecta en pocos segundos: la configuración muestra «cuenta _nombre_ vinculada».
+
+No hace falta nada más: ninguna URL de redirección que declarar. La página es válida durante 15 minutos; pasado ese tiempo, vuelve a hacer clic en Conectar.
+
+Para desvincular: botón **Desvincular la cuenta** y, si quieres, revoca el acceso en tus ajustes de Last.fm (sección Aplicaciones).
+
+## El dispositivo de un perfil
+
+| Funcionalidad               | Valor                                                                     |
+| --------------------------- | ------------------------------------------------------------------------- |
+| **Escuchando**              | 1 mientras suena una canción, 0 en caso contrario                         |
+| **Canción actual o última** | «Artista – Canción»; conserva la última canción cuando termina la escucha |
+| **Scrobbles de hoy**        | desde medianoche, en la zona horaria de Gladys                            |
+| **Scrobbles en total**      | desde la creación de la cuenta                                            |
+
+El historial se conserva: la tarjeta «Gráfico» del panel muestra por ejemplo tu semana de escuchas, y las escenas habituales sobre el valor de un dispositivo funcionan («más de 100 scrobbles hoy»…).
+
+## Escenas: disparadores
+
+En el editor de escenas, en **Last.fm**:
+
+| Disparador                     | Se activa cuando…                                                                    | Filtros         |
+| ------------------------------ | ------------------------------------------------------------------------------------ | --------------- |
+| **Last.fm: nueva canción**     | un perfil empieza a escuchar una canción                                             | perfil, artista |
+| **Last.fm: inicio de escucha** | un perfil empieza a escuchar tras una pausa                                          | perfil          |
+| **Last.fm: fin de escucha**    | no suena nada desde hace dos comprobaciones seguidas                                 | perfil          |
+| **Last.fm: canción favorita**  | un perfil marca una canción como favorita (en Last.fm o en un reproductor conectado) | perfil, artista |
+
+Datos que reciben las acciones de la escena: nombre de usuario, artista, canción, álbum, favorita, enlace de Last.fm y un **resumen** listo para enviar; para el fin de escucha, además, la duración de la sesión (minutos) y el número de canciones reproducidas.
+
+Ejemplos:
+
+- **Inicio de escucha** → atenuar el salón y encender el amplificador;
+- **Fin de escucha** → apagar el amplificador;
+- **Nueva canción**, artista «Daft Punk» → luces en modo disco.
+
+Conviene saber:
+
+- El filtro **Artista** compara el nombre **exactamente** como lo escribe Last.fm, mayúsculas incluidas («Daft Punk», no «daft punk»).
+- Last.fm no envía nada por sí mismo: la integración lee los perfiles cada 30 segundos por defecto. Una escena reacciona, por tanto, con entre unos segundos y medio minuto de retraso.
+- Al arrancar la integración, una escucha ya en curso no activa «Inicio de escucha»; solo cuenta la canción siguiente.
+- La misma canción reproducida dos veces seguidas cuenta una sola vez (Last.fm no permite distinguir las dos escuchas).
+
+## Escenas: acciones
+
+| Acción                               | Resultado                                                                               |
+| ------------------------------------ | --------------------------------------------------------------------------------------- |
+| **Last.fm: qué está sonando**        | escuchando (sí/no), artista, canción, álbum, favorita, enlace, hora de escucha, resumen |
+| **Last.fm: estadísticas de escucha** | scrobbles de hoy y en total, artista / álbum / canción favoritos en un periodo, resumen |
+| **Last.fm: marcar como favorita**    | añade una canción a las favoritas de la cuenta vinculada                                |
+| **Last.fm: quitar de favoritas**     | la quita                                                                                |
+
+Para marcar o quitar una favorita: deja **artista y canción vacíos** para apuntar a la canción que suena ahora (o la última reproducida) en la cuenta vinculada, o rellénalos (se aceptan variables de escena). Ambas acciones requieren una cuenta vinculada.
+
+## Widgets del panel
+
+| Widget                         | Contenido                                                                                                               |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| **Last.fm sonando ahora**      | portada, canción, artista y álbum, scrobbles de hoy y en total, estado, botón **Me encanta** (cuenta vinculada), enlace |
+| **Last.fm escuchas recientes** | las últimas canciones con su portada; la canción en curso y las favoritas están señaladas                               |
+| **Last.fm tops**               | top de artistas, álbumes (en cuadrícula de portadas) o canciones en 7 días, 1, 3, 6 o 12 meses, o desde siempre         |
+
+Cada widget se configura con un perfil (vacío = el primer perfil seguido). El widget «sonando ahora» se actualiza en cuanto empieza una canción nueva.
+
+Last.fm ya no ofrece fotos de artistas desde 2019: el top de artistas se muestra sin imágenes.
+
+## Solución de problemas
+
+| Síntoma                           | Causa probable                                                                            |
+| --------------------------------- | ----------------------------------------------------------------------------------------- |
+| «Last.fm rechaza la clave de API» | clave mal copiada, o secreto compartido erróneo al vincular                               |
+| Un perfil no aparece en Descubrir | el nombre de usuario no existe (consulta los registros de la integración)                 |
+| «oculta sus escuchas recientes»   | el perfil activó la opción de privacidad correspondiente en Last.fm                       |
+| No pasa nada al escuchar          | el reproductor no hace scrobble: comprueba que la canción aparece en tu perfil de Last.fm |
+| El botón Conectar falla           | falta el secreto compartido: rellénalo y guarda antes de hacer clic                       |

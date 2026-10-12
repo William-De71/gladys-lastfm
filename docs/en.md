@@ -16,12 +16,13 @@ Last.fm records ("scrobbles") every track played on Spotify, Deezer, Apple Music
 
 ### 2. Fill in the integration
 
-| Field                  | Purpose                                                                  |
-| ---------------------- | ------------------------------------------------------------------------ |
-| **API key**            | required                                                                 |
-| **Shared secret**      | only to link an account (love tracks from Gladys)                        |
-| **Profiles to follow** | Last.fm usernames separated by commas (10 at most): yours, a relative's… |
-| **Refresh interval**   | 30 seconds by default (15 to 300): this is how fast the scenes react     |
+| Field                     | Purpose                                                                                              |
+| ------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **API key**               | required                                                                                             |
+| **Shared secret**         | only to link an account (love tracks from Gladys)                                                    |
+| **Profiles to follow**    | Last.fm usernames separated by commas (10 at most): yours, a relative's…                             |
+| **Refresh interval**      | 30 seconds by default (15 to 300): this is how fast the scenes react                                 |
+| **Language of the texts** | device names and scene summaries; _Automatic_ follows your dashboard once a Last.fm widget was shown |
 
 Save. The **Test the connection** button checks the key and reads every profile.
 
