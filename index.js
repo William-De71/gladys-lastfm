@@ -587,9 +587,13 @@ gladys.onDeviceCreated(async (device) => {
   const username = usernameFromExternalId(device.external_id, config.usernames);
   const snapshot = username ? watcher.peek(username) : null;
   if (snapshot) {
+    // States sent before the device existed were dropped by Gladys: send
+    // them again now, and refresh the widgets that pick this profile.
     await publishStates(username, snapshot).catch((err) =>
       logger.warn(`Unable to publish the states of ${username}: ${err.message}`),
     );
+    gladys.requestWidgetRefresh(WIDGETS.NOW_PLAYING);
+    gladys.requestWidgetRefresh(WIDGETS.RECENT_TRACKS);
   }
 });
 
