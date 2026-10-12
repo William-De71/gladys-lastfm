@@ -26,7 +26,13 @@
 
 import { readFileSync } from 'node:fs';
 import { GladysIntegration, logger } from '@gladysassistant/integration-sdk';
-import { normalizeConfig, readLanguage, isLinkedUser, INTERNAL_KEYS } from './src/config.js';
+import {
+  normalizeConfig,
+  readLanguage,
+  isLinkedUser,
+  INTERNAL_KEYS,
+  AUTO_LANGUAGE,
+} from './src/config.js';
 import {
   createLastfmClient,
   buildUserAgent,
@@ -39,7 +45,7 @@ import { buildDevice, buildStates, idsOf, usernameFromExternalId } from './src/d
 import { buildSceneEvent } from './src/events.js';
 import { readTrack, readUser } from './src/tracks.js';
 import { imageUrlFromKey } from './src/images.js';
-import { t, all } from './src/i18n.js';
+import { t, all, LANGUAGES } from './src/i18n.js';
 import {
   SCENE_ACTIONS,
   buildNowPlayingOutputs,
@@ -69,7 +75,8 @@ const SNAPSHOT_MAX_AGE_MS = 20000;
 const gladys = new GladysIntegration();
 
 let config = normalizeConfig();
-// Language of the last widget request: names of the devices, scene summaries.
+// Language of the last widget request: the fallback of the texts Gladys does
+// not ask for in a language, when the `language` setting is `auto`.
 let language = 'en';
 // Device external ids the user created (states are only published for them).
 let createdDevices = new Set();
@@ -95,6 +102,16 @@ function rememberLanguage(next) {
   gladys
     .setConfig({ [INTERNAL_KEYS.language]: next })
     .catch((err) => logger.warn(`Unable to store the language: ${err.message}`));
+}
+
+/**
+ * @description Language of the texts Gladys does not ask for in a language
+ * (device names, scene summaries and outputs): the `language` setting, or the
+ * language of the last widget request when it is `auto`.
+ * @returns {string} The language.
+ */
+function textLanguage() {
+  return config.language === AUTO_LANGUAGE ? language : config.language;
 }
 
 /**
@@ -160,7 +177,7 @@ const watcher = createWatcher({
   getIntervalMs: () => config.pollInterval * 1000,
   onRound: async (username, snapshot, { events, changed }) => {
     for (const event of events) {
-      const { key, data } = buildSceneEvent(gladys, username, event, language);
+      const { key, data } = buildSceneEvent(gladys, username, event, textLanguage());
       logger.info(`${username}: ${key} (${data.artist} – ${data.track})`);
       try {
         await gladys.publishSceneEvent(key, data);
@@ -235,14 +252,14 @@ async function publishDiscoveredDevices() {
   for (const username of config.usernames) {
     try {
       const profile = readUser(await lastfm.getUserInfo(username));
-      devices.push(buildDevice(gladys, profile.name || username, language));
+      devices.push(buildDevice(gladys, profile.name || username, textLanguage()));
     } catch (err) {
       if (err.code === ERROR_CODES.INVALID_PARAMETERS) {
         logger.warn(`Last.fm profile "${username}" not found: not offered`);
       } else {
         // Last.fm unreachable: offer it anyway, as typed.
         logger.warn(`Unable to check the Last.fm profile ${username}: ${err.message}`);
-        devices.push(buildDevice(gladys, username, language));
+        devices.push(buildDevice(gladys, username, textLanguage()));
       }
     }
   }
@@ -461,7 +478,7 @@ async function sceneSnapshot(deviceExternalId) {
 }
 
 gladys.onSceneAction(SCENE_ACTIONS.GET_NOW_PLAYING, async (fields) =>
-  buildNowPlayingOutputs(await sceneSnapshot(fields.user), language),
+  buildNowPlayingOutputs(await sceneSnapshot(fields.user), textLanguage()),
 );
 
 gladys.onSceneAction(SCENE_ACTIONS.GET_STATS, async (fields) => {
@@ -481,7 +498,14 @@ gladys.onSceneAction(SCENE_ACTIONS.GET_STATS, async (fields) => {
     top('albums'),
     top('tracks'),
   ]);
-  return buildStatsOutputs({ snapshot, topArtist, topAlbum, topTrack, period, language });
+  return buildStatsOutputs({
+    snapshot,
+    topArtist,
+    topAlbum,
+    topTrack,
+    period,
+    language: textLanguage(),
+  });
 });
 
 /**
@@ -517,28 +541,30 @@ gladys.onAction(ACTIONS.TEST_CONNECTION, async () => {
   }
   if (config.usernames.length === 0) {
     await lastfm.call('chart.getTopArtists', { limit: 1 });
-    return {
-      en: 'API key accepted. No profile followed yet.',
-      fr: 'Clé d’API acceptée. Aucun profil suivi pour l’instant.',
-    };
+    return all('keyAccepted');
   }
-  const lines = { en: [], fr: [] };
+  const lines = [];
   for (const username of config.usernames) {
     try {
       const profile = readUser(await lastfm.getUserInfo(username));
-      const count = profile.playcount ?? '?';
-      lines.en.push(`${profile.name || username}: OK, ${count} scrobbles`);
-      lines.fr.push(`${profile.name || username} : OK, ${count} scrobbles`);
+      lines.push(
+        all('profileOk', { user: profile.name || username, count: profile.playcount ?? '?' }),
+      );
     } catch (err) {
-      lines.en.push(`${username}: ${readErrorMessage(err, username, 'en')}`);
-      lines.fr.push(`${username} : ${readErrorMessage(err, username, 'fr')}`);
+      lines.push(
+        all('profileError', (lang) => ({
+          user: username,
+          error: readErrorMessage(err, username, lang),
+        })),
+      );
     }
   }
   if (config.sessionUser) {
-    lines.en.push(`Linked account: ${config.sessionUser}`);
-    lines.fr.push(`Compte lié : ${config.sessionUser}`);
+    lines.push(all('linkedAccount', { user: config.sessionUser }));
   }
-  return { en: lines.en.join(' · '), fr: lines.fr.join(' · ') };
+  return Object.fromEntries(
+    LANGUAGES.map((lang) => [lang, lines.map((line) => line[lang]).join(' · ')]),
+  );
 });
 
 gladys.onAction(ACTIONS.UNLINK_ACCOUNT, async () => {
@@ -547,10 +573,7 @@ gladys.onAction(ACTIONS.UNLINK_ACCOUNT, async () => {
   config = { ...config, sessionKey: '', sessionUser: '' };
   await reportStatus(Boolean(config.apiKey), config.apiKey ? connectedMessage() : all('noApiKey'));
   gladys.requestWidgetRefresh(WIDGETS.NOW_PLAYING);
-  return {
-    en: 'Account unlinked. You can also revoke the access in your Last.fm settings (Applications).',
-    fr: 'Compte délié. Vous pouvez aussi révoquer l’accès dans vos réglages Last.fm (Applications).',
-  };
+  return all('unlinked');
 });
 
 // --- Devices -----------------------------------------------------------------------

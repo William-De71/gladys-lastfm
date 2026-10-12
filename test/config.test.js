@@ -8,6 +8,7 @@ import {
   isLinkedUser,
   POLL_INTERVAL,
   MAX_USERS,
+  AUTO_LANGUAGE,
 } from '../src/config.js';
 
 const KEY = '0123456789ABCDEF0123456789abcdef';
@@ -18,6 +19,7 @@ test('normalizes a complete config', () => {
     shared_secret: ' s3cret ',
     usernames: 'rj, Bob',
     poll_interval: '60',
+    language: 'de',
     session_key: 'sk',
     session_user: 'RJ',
   });
@@ -26,6 +28,7 @@ test('normalizes a complete config', () => {
     sharedSecret: 's3cret',
     usernames: ['rj', 'Bob'],
     pollInterval: 60,
+    language: 'de',
     sessionKey: 'sk',
     sessionUser: 'RJ',
   });
@@ -37,6 +40,7 @@ test('defaults everything on an empty config', () => {
     sharedSecret: '',
     usernames: [],
     pollInterval: POLL_INTERVAL.default,
+    language: AUTO_LANGUAGE,
     sessionKey: '',
     sessionUser: '',
   });
@@ -60,6 +64,15 @@ test('parses the usernames: separators, invalid names, duplicates, cap', () => {
   assert.deepEqual(parseUsernames(undefined), []);
   const many = Array.from({ length: 15 }, (_, i) => `user${i}`).join(',');
   assert.equal(parseUsernames(many).length, MAX_USERS);
+});
+
+test('reads the language setting, automatic unless a known language', () => {
+  for (const language of ['en', 'fr', 'de', 'es']) {
+    assert.equal(normalizeConfig({ language }).language, language);
+  }
+  assert.equal(normalizeConfig({ language: 'auto' }).language, AUTO_LANGUAGE);
+  assert.equal(normalizeConfig({ language: 'it' }).language, AUTO_LANGUAGE);
+  assert.equal(normalizeConfig({}).language, AUTO_LANGUAGE);
 });
 
 test('reads the stored language', () => {

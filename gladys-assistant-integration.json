@@ -4,7 +4,9 @@
   "name": "Last.fm",
   "description": {
     "en": "What you listen to on Last.fm: scrobbles, music scenes and widgets.",
-    "fr": "Vos écoutes Last.fm : scrobbles, scènes musicales et widgets."
+    "fr": "Vos écoutes Last.fm : scrobbles, scènes musicales et widgets.",
+    "de": "Was du auf Last.fm hörst: Scrobbles, Musikszenen und Widgets.",
+    "es": "Lo que escuchas en Last.fm: scrobbles, escenas musicales y widgets."
   },
   "version": "1.0.0",
   "docker_image": "ghcr.io/william-de71/gladys-lastfm:1.0.0",
@@ -18,25 +20,33 @@
       "type": "section",
       "label": {
         "en": "Last.fm API key",
-        "fr": "Clé d’API Last.fm"
+        "fr": "Clé d’API Last.fm",
+        "de": "Last.fm-API-Schlüssel",
+        "es": "Clave de API de Last.fm"
       },
       "description": {
         "en": "Last.fm records what you listen to on Spotify, Deezer, Apple Music, YouTube Music, Plex and many more. Reading your listening needs a free API key: create an API account on Last.fm (any application name; the callback URL can stay empty), then copy its API key and shared secret below.",
-        "fr": "Last.fm enregistre ce que vous écoutez sur Spotify, Deezer, Apple Music, YouTube Music, Plex et bien d’autres. Lire vos écoutes nécessite une clé d’API gratuite : créez un compte d’API sur Last.fm (nom d’application libre ; l’URL de callback peut rester vide), puis copiez ci-dessous sa clé d’API et son secret partagé."
+        "fr": "Last.fm enregistre ce que vous écoutez sur Spotify, Deezer, Apple Music, YouTube Music, Plex et bien d’autres. Lire vos écoutes nécessite une clé d’API gratuite : créez un compte d’API sur Last.fm (nom d’application libre ; l’URL de callback peut rester vide), puis copiez ci-dessous sa clé d’API et son secret partagé.",
+        "de": "Last.fm zeichnet auf, was du auf Spotify, Deezer, Apple Music, YouTube Music, Plex und vielen weiteren Diensten hörst. Zum Lesen deiner Titel ist ein kostenloser API-Schlüssel nötig: Lege auf Last.fm ein API-Konto an (beliebiger Anwendungsname; die Callback-URL kann leer bleiben) und kopiere dann seinen API-Schlüssel und sein gemeinsames Geheimnis hierher.",
+        "es": "Last.fm registra lo que escuchas en Spotify, Deezer, Apple Music, YouTube Music, Plex y muchos más. Para leer tus escuchas se necesita una clave de API gratuita: crea una cuenta de API en Last.fm (cualquier nombre de aplicación; la URL de callback puede quedar vacía) y copia aquí su clave de API y su secreto compartido."
       },
       "links": [
         {
           "url": "https://www.last.fm/api/account/create",
           "label": {
             "en": "Create an API account",
-            "fr": "Créer un compte d’API"
+            "fr": "Créer un compte d’API",
+            "de": "API-Konto anlegen",
+            "es": "Crear una cuenta de API"
           }
         },
         {
           "url": "https://www.last.fm/api/accounts",
           "label": {
             "en": "My API accounts",
-            "fr": "Mes comptes d’API"
+            "fr": "Mes comptes d’API",
+            "de": "Meine API-Konten",
+            "es": "Mis cuentas de API"
           }
         }
       ]
@@ -46,11 +56,15 @@
       "type": "secret",
       "label": {
         "en": "API key",
-        "fr": "Clé d’API"
+        "fr": "Clé d’API",
+        "de": "API-Schlüssel",
+        "es": "Clave de API"
       },
       "description": {
         "en": "32 characters.",
-        "fr": "32 caractères."
+        "fr": "32 caractères.",
+        "de": "32 Zeichen.",
+        "es": "32 caracteres."
       },
       "required": true
     },
@@ -59,11 +73,15 @@
       "type": "secret",
       "label": {
         "en": "Shared secret",
-        "fr": "Secret partagé"
+        "fr": "Secret partagé",
+        "de": "Gemeinsames Geheimnis",
+        "es": "Secreto compartido"
       },
       "description": {
         "en": "Only needed to link an account (to love tracks).",
-        "fr": "Nécessaire uniquement pour lier un compte (aimer des titres)."
+        "fr": "Nécessaire uniquement pour lier un compte (aimer des titres).",
+        "de": "Nur nötig, um ein Konto zu verknüpfen (Titel lieben).",
+        "es": "Solo necesario para vincular una cuenta (marcar canciones como favoritas)."
       },
       "required": false
     },
@@ -72,15 +90,21 @@
       "type": "string",
       "label": {
         "en": "Profiles to follow",
-        "fr": "Profils à suivre"
+        "fr": "Profils à suivre",
+        "de": "Abonnierte Profile",
+        "es": "Perfiles a seguir"
       },
       "description": {
         "en": "Last.fm usernames, separated by commas (10 at most). Each one becomes a device on the Discovery screen.",
-        "fr": "Noms d’utilisateur Last.fm, séparés par des virgules (10 au maximum). Chacun devient un appareil dans l’écran de découverte."
+        "fr": "Noms d’utilisateur Last.fm, séparés par des virgules (10 au maximum). Chacun devient un appareil dans l’écran de découverte.",
+        "de": "Last.fm-Benutzernamen, durch Kommas getrennt (höchstens 10). Jeder wird zu einem Gerät im Reiter Entdecken.",
+        "es": "Nombres de usuario de Last.fm, separados por comas (10 como máximo). Cada uno se convierte en un dispositivo en la pestaña Descubrir."
       },
       "placeholder": {
         "en": "rj, my_friend",
-        "fr": "rj, mon_ami"
+        "fr": "rj, mon_ami",
+        "de": "rj, mein_freund",
+        "es": "rj, mi_amigo"
       },
       "required": true
     },
@@ -89,11 +113,15 @@
       "type": "number",
       "label": {
         "en": "Refresh interval (s)",
-        "fr": "Intervalle de lecture (s)"
+        "fr": "Intervalle de lecture (s)",
+        "de": "Abfrageintervall (s)",
+        "es": "Intervalo de lectura (s)"
       },
       "description": {
         "en": "How often the profiles are read, between 15 and 300 seconds. Last.fm has no push: this is the delay of the scenes.",
-        "fr": "Fréquence de lecture des profils, entre 15 et 300 secondes. Last.fm ne pousse rien : c’est le délai de réaction des scènes."
+        "fr": "Fréquence de lecture des profils, entre 15 et 300 secondes. Last.fm ne pousse rien : c’est le délai de réaction des scènes.",
+        "de": "Wie oft die Profile gelesen werden, zwischen 15 und 300 Sekunden. Last.fm sendet nichts von sich aus: Das ist die Reaktionszeit der Szenen.",
+        "es": "Cada cuánto se leen los perfiles, entre 15 y 300 segundos. Last.fm no envía nada por sí mismo: es el retardo de las escenas."
       },
       "min": 15,
       "max": 300,
@@ -101,15 +129,84 @@
       "required": false
     },
     {
+      "key": "language",
+      "type": "select",
+      "label": {
+        "en": "Language of the texts",
+        "fr": "Langue des textes",
+        "de": "Sprache der Texte",
+        "es": "Idioma de los textos"
+      },
+      "description": {
+        "en": "Device names, scene summaries and outputs. Automatic: the language of your dashboard, once a Last.fm widget has been displayed.",
+        "fr": "Noms des appareils, résumés et sorties des scènes. Automatique : la langue de votre tableau de bord, dès qu’un widget Last.fm a été affiché.",
+        "de": "Gerätenamen, Zusammenfassungen und Ausgaben der Szenen. Automatisch: die Sprache deines Dashboards, sobald ein Last.fm-Widget angezeigt wurde.",
+        "es": "Nombres de los dispositivos, resúmenes y salidas de las escenas. Automático: el idioma de tu panel, en cuanto se haya mostrado un widget de Last.fm."
+      },
+      "options": [
+        {
+          "value": "auto",
+          "label": {
+            "en": "Automatic",
+            "fr": "Automatique",
+            "de": "Automatisch",
+            "es": "Automático"
+          }
+        },
+        {
+          "value": "en",
+          "label": {
+            "en": "English",
+            "fr": "English",
+            "de": "English",
+            "es": "English"
+          }
+        },
+        {
+          "value": "fr",
+          "label": {
+            "en": "Français",
+            "fr": "Français",
+            "de": "Français",
+            "es": "Français"
+          }
+        },
+        {
+          "value": "de",
+          "label": {
+            "en": "Deutsch",
+            "fr": "Deutsch",
+            "de": "Deutsch",
+            "es": "Deutsch"
+          }
+        },
+        {
+          "value": "es",
+          "label": {
+            "en": "Español",
+            "fr": "Español",
+            "de": "Español",
+            "es": "Español"
+          }
+        }
+      ],
+      "default": "auto",
+      "required": false
+    },
+    {
       "key": "account_intro",
       "type": "section",
       "label": {
         "en": "Link your account (optional)",
-        "fr": "Lier votre compte (optionnel)"
+        "fr": "Lier votre compte (optionnel)",
+        "de": "Konto verknüpfen (optional)",
+        "es": "Vincular tu cuenta (opcional)"
       },
       "description": {
         "en": "Only needed to love or unlove tracks from Gladys (widget button, scene actions). Fill in the shared secret and save first, then click Connect and approve the access on the Last.fm page that opens. Gladys detects the approval within a few seconds.",
-        "fr": "Nécessaire uniquement pour aimer ou ne plus aimer des titres depuis Gladys (bouton du widget, actions de scène). Renseignez d’abord le secret partagé et enregistrez, puis cliquez sur Connecter et autorisez l’accès sur la page Last.fm qui s’ouvre. Gladys détecte l’autorisation en quelques secondes."
+        "fr": "Nécessaire uniquement pour aimer ou ne plus aimer des titres depuis Gladys (bouton du widget, actions de scène). Renseignez d’abord le secret partagé et enregistrez, puis cliquez sur Connecter et autorisez l’accès sur la page Last.fm qui s’ouvre. Gladys détecte l’autorisation en quelques secondes.",
+        "de": "Nur nötig, um Titel aus Gladys heraus zu lieben oder nicht mehr zu lieben (Widget-Schaltfläche, Szenenaktionen). Trage zuerst das gemeinsame Geheimnis ein und speichere, klicke dann auf Verbinden und erlaube den Zugriff auf der Last.fm-Seite, die sich öffnet. Gladys erkennt die Freigabe innerhalb weniger Sekunden.",
+        "es": "Solo necesario para marcar o desmarcar canciones como favoritas desde Gladys (botón del widget, acciones de escena). Rellena primero el secreto compartido y guarda, luego haz clic en Conectar y autoriza el acceso en la página de Last.fm que se abre. Gladys detecta la autorización en pocos segundos."
       }
     },
     {
@@ -117,7 +214,9 @@
       "type": "account_link",
       "label": {
         "en": "Last.fm account",
-        "fr": "Compte Last.fm"
+        "fr": "Compte Last.fm",
+        "de": "Last.fm-Konto",
+        "es": "Cuenta de Last.fm"
       }
     }
   ],
@@ -126,11 +225,15 @@
       "key": "test_connection",
       "label": {
         "en": "Test the connection",
-        "fr": "Tester la connexion"
+        "fr": "Tester la connexion",
+        "de": "Verbindung testen",
+        "es": "Probar la conexión"
       },
       "description": {
         "en": "Checks the API key and reads every followed profile.",
-        "fr": "Vérifie la clé d’API et lit chaque profil suivi."
+        "fr": "Vérifie la clé d’API et lit chaque profil suivi.",
+        "de": "Prüft den API-Schlüssel und liest jedes abonnierte Profil.",
+        "es": "Comprueba la clave de API y lee cada perfil seguido."
       },
       "timeout_seconds": 60
     },
@@ -138,11 +241,15 @@
       "key": "unlink_account",
       "label": {
         "en": "Unlink the account",
-        "fr": "Délier le compte"
+        "fr": "Délier le compte",
+        "de": "Konto trennen",
+        "es": "Desvincular la cuenta"
       },
       "description": {
         "en": "Forgets the session of the linked Last.fm account.",
-        "fr": "Oublie la session du compte Last.fm lié."
+        "fr": "Oublie la session du compte Last.fm lié.",
+        "de": "Vergisst die Sitzung des verknüpften Last.fm-Kontos.",
+        "es": "Olvida la sesión de la cuenta de Last.fm vinculada."
       },
       "timeout_seconds": 15
     }
@@ -152,11 +259,15 @@
       "key": "track_started",
       "label": {
         "en": "Last.fm: new track",
-        "fr": "Last.fm : nouveau titre"
+        "fr": "Last.fm : nouveau titre",
+        "de": "Last.fm: neuer Titel",
+        "es": "Last.fm: nueva canción"
       },
       "description": {
         "en": "A profile starts playing a track. Checked every 30 seconds by default.",
-        "fr": "Un profil commence à écouter un titre. Vérifié toutes les 30 secondes par défaut."
+        "fr": "Un profil commence à écouter un titre. Vérifié toutes les 30 secondes par défaut.",
+        "de": "Ein Profil beginnt, einen Titel zu hören. Standardmäßig alle 30 Sekunden geprüft.",
+        "es": "Un perfil empieza a reproducir una canción. Se comprueba cada 30 segundos por defecto."
       },
       "fields": [
         {
@@ -165,11 +276,15 @@
           "source": "devices",
           "label": {
             "en": "Profile",
-            "fr": "Profil"
+            "fr": "Profil",
+            "de": "Profil",
+            "es": "Perfil"
           },
           "description": {
             "en": "One of the Last.fm devices. Leave empty for any profile.",
-            "fr": "Un des appareils Last.fm. Laissez vide pour tous les profils."
+            "fr": "Un des appareils Last.fm. Laissez vide pour tous les profils.",
+            "de": "Eines der Last.fm-Geräte. Leer lassen für jedes Profil.",
+            "es": "Uno de los dispositivos de Last.fm. Déjalo vacío para cualquier perfil."
           },
           "required": false
         },
@@ -178,11 +293,15 @@
           "type": "string",
           "label": {
             "en": "Artist",
-            "fr": "Artiste"
+            "fr": "Artiste",
+            "de": "Künstler",
+            "es": "Artista"
           },
           "description": {
             "en": "Exactly as Last.fm spells it (case-sensitive). Leave empty for any artist.",
-            "fr": "Exactement comme Last.fm l’écrit (majuscules comprises). Laissez vide pour tous les artistes."
+            "fr": "Exactement comme Last.fm l’écrit (majuscules comprises). Laissez vide pour tous les artistes.",
+            "de": "Genau so, wie Last.fm ihn schreibt (Groß-/Kleinschreibung beachten). Leer lassen für jeden Künstler.",
+            "es": "Exactamente como lo escribe Last.fm (distingue mayúsculas). Déjalo vacío para cualquier artista."
           },
           "required": false
         }
@@ -193,7 +312,9 @@
           "type": "string",
           "label": {
             "en": "Username",
-            "fr": "Nom d’utilisateur"
+            "fr": "Nom d’utilisateur",
+            "de": "Benutzername",
+            "es": "Nombre de usuario"
           }
         },
         {
@@ -201,7 +322,9 @@
           "type": "string",
           "label": {
             "en": "Artist",
-            "fr": "Artiste"
+            "fr": "Artiste",
+            "de": "Künstler",
+            "es": "Artista"
           }
         },
         {
@@ -209,7 +332,9 @@
           "type": "string",
           "label": {
             "en": "Track",
-            "fr": "Titre"
+            "fr": "Titre",
+            "de": "Titel",
+            "es": "Canción"
           }
         },
         {
@@ -217,7 +342,9 @@
           "type": "string",
           "label": {
             "en": "Album",
-            "fr": "Album"
+            "fr": "Album",
+            "de": "Album",
+            "es": "Álbum"
           }
         },
         {
@@ -225,7 +352,9 @@
           "type": "boolean",
           "label": {
             "en": "Loved",
-            "fr": "Coup de cœur"
+            "fr": "Coup de cœur",
+            "de": "Lieblingstitel",
+            "es": "Favorita"
           }
         },
         {
@@ -233,7 +362,9 @@
           "type": "string",
           "label": {
             "en": "Last.fm link",
-            "fr": "Lien Last.fm"
+            "fr": "Lien Last.fm",
+            "de": "Last.fm-Link",
+            "es": "Enlace de Last.fm"
           }
         },
         {
@@ -241,11 +372,15 @@
           "type": "string",
           "label": {
             "en": "Summary",
-            "fr": "Résumé"
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
           },
           "description": {
             "en": "A sentence ready to put in a message.",
-            "fr": "Une phrase prête à mettre dans un message."
+            "fr": "Une phrase prête à mettre dans un message.",
+            "de": "Ein fertiger Satz für eine Nachricht.",
+            "es": "Una frase lista para poner en un mensaje."
           }
         }
       ]
@@ -254,11 +389,15 @@
       "key": "listening_started",
       "label": {
         "en": "Last.fm: listening started",
-        "fr": "Last.fm : début d’écoute"
+        "fr": "Last.fm : début d’écoute",
+        "de": "Last.fm: Wiedergabe gestartet",
+        "es": "Last.fm: inicio de escucha"
       },
       "description": {
         "en": "A profile starts listening after a pause.",
-        "fr": "Un profil se met à écouter après une pause."
+        "fr": "Un profil se met à écouter après une pause.",
+        "de": "Ein Profil beginnt nach einer Pause wieder zu hören.",
+        "es": "Un perfil empieza a escuchar tras una pausa."
       },
       "fields": [
         {
@@ -267,11 +406,15 @@
           "source": "devices",
           "label": {
             "en": "Profile",
-            "fr": "Profil"
+            "fr": "Profil",
+            "de": "Profil",
+            "es": "Perfil"
           },
           "description": {
             "en": "One of the Last.fm devices. Leave empty for any profile.",
-            "fr": "Un des appareils Last.fm. Laissez vide pour tous les profils."
+            "fr": "Un des appareils Last.fm. Laissez vide pour tous les profils.",
+            "de": "Eines der Last.fm-Geräte. Leer lassen für jedes Profil.",
+            "es": "Uno de los dispositivos de Last.fm. Déjalo vacío para cualquier perfil."
           },
           "required": false
         }
@@ -282,7 +425,9 @@
           "type": "string",
           "label": {
             "en": "Username",
-            "fr": "Nom d’utilisateur"
+            "fr": "Nom d’utilisateur",
+            "de": "Benutzername",
+            "es": "Nombre de usuario"
           }
         },
         {
@@ -290,7 +435,9 @@
           "type": "string",
           "label": {
             "en": "Artist",
-            "fr": "Artiste"
+            "fr": "Artiste",
+            "de": "Künstler",
+            "es": "Artista"
           }
         },
         {
@@ -298,7 +445,9 @@
           "type": "string",
           "label": {
             "en": "Track",
-            "fr": "Titre"
+            "fr": "Titre",
+            "de": "Titel",
+            "es": "Canción"
           }
         },
         {
@@ -306,11 +455,15 @@
           "type": "string",
           "label": {
             "en": "Summary",
-            "fr": "Résumé"
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
           },
           "description": {
             "en": "A sentence ready to put in a message.",
-            "fr": "Une phrase prête à mettre dans un message."
+            "fr": "Une phrase prête à mettre dans un message.",
+            "de": "Ein fertiger Satz für eine Nachricht.",
+            "es": "Una frase lista para poner en un mensaje."
           }
         }
       ]
@@ -319,11 +472,15 @@
       "key": "listening_stopped",
       "label": {
         "en": "Last.fm: listening stopped",
-        "fr": "Last.fm : fin d’écoute"
+        "fr": "Last.fm : fin d’écoute",
+        "de": "Last.fm: Wiedergabe beendet",
+        "es": "Last.fm: fin de escucha"
       },
       "description": {
         "en": "Nothing has been playing for two checks in a row.",
-        "fr": "Plus rien n’est joué depuis deux vérifications de suite."
+        "fr": "Plus rien n’est joué depuis deux vérifications de suite.",
+        "de": "Seit zwei Prüfungen in Folge läuft nichts mehr.",
+        "es": "No suena nada desde hace dos comprobaciones seguidas."
       },
       "fields": [
         {
@@ -332,11 +489,15 @@
           "source": "devices",
           "label": {
             "en": "Profile",
-            "fr": "Profil"
+            "fr": "Profil",
+            "de": "Profil",
+            "es": "Perfil"
           },
           "description": {
             "en": "One of the Last.fm devices. Leave empty for any profile.",
-            "fr": "Un des appareils Last.fm. Laissez vide pour tous les profils."
+            "fr": "Un des appareils Last.fm. Laissez vide pour tous les profils.",
+            "de": "Eines der Last.fm-Geräte. Leer lassen für jedes Profil.",
+            "es": "Uno de los dispositivos de Last.fm. Déjalo vacío para cualquier perfil."
           },
           "required": false
         }
@@ -347,7 +508,9 @@
           "type": "string",
           "label": {
             "en": "Username",
-            "fr": "Nom d’utilisateur"
+            "fr": "Nom d’utilisateur",
+            "de": "Benutzername",
+            "es": "Nombre de usuario"
           }
         },
         {
@@ -355,7 +518,9 @@
           "type": "string",
           "label": {
             "en": "Last artist",
-            "fr": "Dernier artiste"
+            "fr": "Dernier artiste",
+            "de": "Letzter Künstler",
+            "es": "Último artista"
           }
         },
         {
@@ -363,7 +528,9 @@
           "type": "string",
           "label": {
             "en": "Last track",
-            "fr": "Dernier titre"
+            "fr": "Dernier titre",
+            "de": "Letzter Titel",
+            "es": "Última canción"
           }
         },
         {
@@ -371,7 +538,9 @@
           "type": "number",
           "label": {
             "en": "Session length (min)",
-            "fr": "Durée de la session (min)"
+            "fr": "Durée de la session (min)",
+            "de": "Dauer der Sitzung (Min.)",
+            "es": "Duración de la sesión (min)"
           }
         },
         {
@@ -379,7 +548,9 @@
           "type": "number",
           "label": {
             "en": "Tracks played",
-            "fr": "Titres joués"
+            "fr": "Titres joués",
+            "de": "Gespielte Titel",
+            "es": "Canciones reproducidas"
           }
         },
         {
@@ -387,11 +558,15 @@
           "type": "string",
           "label": {
             "en": "Summary",
-            "fr": "Résumé"
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
           },
           "description": {
             "en": "A sentence ready to put in a message.",
-            "fr": "Une phrase prête à mettre dans un message."
+            "fr": "Une phrase prête à mettre dans un message.",
+            "de": "Ein fertiger Satz für eine Nachricht.",
+            "es": "Una frase lista para poner en un mensaje."
           }
         }
       ]
@@ -400,11 +575,15 @@
       "key": "track_loved",
       "label": {
         "en": "Last.fm: track loved",
-        "fr": "Last.fm : titre aimé"
+        "fr": "Last.fm : titre aimé",
+        "de": "Last.fm: Titel geliebt",
+        "es": "Last.fm: canción favorita"
       },
       "description": {
         "en": "A profile loves a track, on Last.fm or in a connected player.",
-        "fr": "Un profil aime un titre, sur Last.fm ou dans un lecteur connecté."
+        "fr": "Un profil aime un titre, sur Last.fm ou dans un lecteur connecté.",
+        "de": "Ein Profil liebt einen Titel, auf Last.fm oder in einem verbundenen Player.",
+        "es": "Un perfil marca una canción como favorita, en Last.fm o en un reproductor conectado."
       },
       "fields": [
         {
@@ -413,11 +592,15 @@
           "source": "devices",
           "label": {
             "en": "Profile",
-            "fr": "Profil"
+            "fr": "Profil",
+            "de": "Profil",
+            "es": "Perfil"
           },
           "description": {
             "en": "One of the Last.fm devices. Leave empty for any profile.",
-            "fr": "Un des appareils Last.fm. Laissez vide pour tous les profils."
+            "fr": "Un des appareils Last.fm. Laissez vide pour tous les profils.",
+            "de": "Eines der Last.fm-Geräte. Leer lassen für jedes Profil.",
+            "es": "Uno de los dispositivos de Last.fm. Déjalo vacío para cualquier perfil."
           },
           "required": false
         },
@@ -426,11 +609,15 @@
           "type": "string",
           "label": {
             "en": "Artist",
-            "fr": "Artiste"
+            "fr": "Artiste",
+            "de": "Künstler",
+            "es": "Artista"
           },
           "description": {
             "en": "Exactly as Last.fm spells it (case-sensitive). Leave empty for any artist.",
-            "fr": "Exactement comme Last.fm l’écrit (majuscules comprises). Laissez vide pour tous les artistes."
+            "fr": "Exactement comme Last.fm l’écrit (majuscules comprises). Laissez vide pour tous les artistes.",
+            "de": "Genau so, wie Last.fm ihn schreibt (Groß-/Kleinschreibung beachten). Leer lassen für jeden Künstler.",
+            "es": "Exactamente como lo escribe Last.fm (distingue mayúsculas). Déjalo vacío para cualquier artista."
           },
           "required": false
         }
@@ -441,7 +628,9 @@
           "type": "string",
           "label": {
             "en": "Username",
-            "fr": "Nom d’utilisateur"
+            "fr": "Nom d’utilisateur",
+            "de": "Benutzername",
+            "es": "Nombre de usuario"
           }
         },
         {
@@ -449,7 +638,9 @@
           "type": "string",
           "label": {
             "en": "Artist",
-            "fr": "Artiste"
+            "fr": "Artiste",
+            "de": "Künstler",
+            "es": "Artista"
           }
         },
         {
@@ -457,7 +648,9 @@
           "type": "string",
           "label": {
             "en": "Track",
-            "fr": "Titre"
+            "fr": "Titre",
+            "de": "Titel",
+            "es": "Canción"
           }
         },
         {
@@ -465,7 +658,9 @@
           "type": "string",
           "label": {
             "en": "Last.fm link",
-            "fr": "Lien Last.fm"
+            "fr": "Lien Last.fm",
+            "de": "Last.fm-Link",
+            "es": "Enlace de Last.fm"
           }
         },
         {
@@ -473,11 +668,15 @@
           "type": "string",
           "label": {
             "en": "Summary",
-            "fr": "Résumé"
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
           },
           "description": {
             "en": "A sentence ready to put in a message.",
-            "fr": "Une phrase prête à mettre dans un message."
+            "fr": "Une phrase prête à mettre dans un message.",
+            "de": "Ein fertiger Satz für eine Nachricht.",
+            "es": "Una frase lista para poner en un mensaje."
           }
         }
       ]
@@ -488,11 +687,15 @@
       "key": "get_now_playing",
       "label": {
         "en": "Last.fm: what is playing",
-        "fr": "Last.fm : titre en cours"
+        "fr": "Last.fm : titre en cours",
+        "de": "Last.fm: was gerade läuft",
+        "es": "Last.fm: qué está sonando"
       },
       "description": {
         "en": "The track a profile is listening to, or the last one played.",
-        "fr": "Le titre qu’un profil écoute, ou le dernier écouté."
+        "fr": "Le titre qu’un profil écoute, ou le dernier écouté.",
+        "de": "Der Titel, den ein Profil gerade hört, oder der zuletzt gehörte.",
+        "es": "La canción que escucha un perfil, o la última reproducida."
       },
       "timeout_seconds": 20,
       "fields": [
@@ -502,11 +705,15 @@
           "source": "devices",
           "label": {
             "en": "Profile",
-            "fr": "Profil"
+            "fr": "Profil",
+            "de": "Profil",
+            "es": "Perfil"
           },
           "description": {
             "en": "Leave empty for the first followed profile.",
-            "fr": "Laissez vide pour le premier profil suivi."
+            "fr": "Laissez vide pour le premier profil suivi.",
+            "de": "Leer lassen für das erste abonnierte Profil.",
+            "es": "Déjalo vacío para el primer perfil seguido."
           },
           "required": false
         }
@@ -517,7 +724,9 @@
           "type": "string",
           "label": {
             "en": "Username",
-            "fr": "Nom d’utilisateur"
+            "fr": "Nom d’utilisateur",
+            "de": "Benutzername",
+            "es": "Nombre de usuario"
           }
         },
         {
@@ -525,7 +734,9 @@
           "type": "boolean",
           "label": {
             "en": "Listening now",
-            "fr": "En écoute"
+            "fr": "En écoute",
+            "de": "Hört gerade",
+            "es": "Escuchando ahora"
           }
         },
         {
@@ -533,7 +744,9 @@
           "type": "string",
           "label": {
             "en": "Artist",
-            "fr": "Artiste"
+            "fr": "Artiste",
+            "de": "Künstler",
+            "es": "Artista"
           }
         },
         {
@@ -541,7 +754,9 @@
           "type": "string",
           "label": {
             "en": "Track",
-            "fr": "Titre"
+            "fr": "Titre",
+            "de": "Titel",
+            "es": "Canción"
           }
         },
         {
@@ -549,7 +764,9 @@
           "type": "string",
           "label": {
             "en": "Album",
-            "fr": "Album"
+            "fr": "Album",
+            "de": "Album",
+            "es": "Álbum"
           }
         },
         {
@@ -557,7 +774,9 @@
           "type": "boolean",
           "label": {
             "en": "Loved",
-            "fr": "Coup de cœur"
+            "fr": "Coup de cœur",
+            "de": "Lieblingstitel",
+            "es": "Favorita"
           }
         },
         {
@@ -565,7 +784,9 @@
           "type": "string",
           "label": {
             "en": "Last.fm link",
-            "fr": "Lien Last.fm"
+            "fr": "Lien Last.fm",
+            "de": "Last.fm-Link",
+            "es": "Enlace de Last.fm"
           }
         },
         {
@@ -573,7 +794,9 @@
           "type": "string",
           "label": {
             "en": "Played at (empty while playing)",
-            "fr": "Écouté le (vide pendant l’écoute)"
+            "fr": "Écouté le (vide pendant l’écoute)",
+            "de": "Gehört am (leer während der Wiedergabe)",
+            "es": "Escuchada el (vacío durante la reproducción)"
           }
         },
         {
@@ -581,11 +804,15 @@
           "type": "string",
           "label": {
             "en": "Summary",
-            "fr": "Résumé"
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
           },
           "description": {
             "en": "A sentence ready to put in a message.",
-            "fr": "Une phrase prête à mettre dans un message."
+            "fr": "Une phrase prête à mettre dans un message.",
+            "de": "Ein fertiger Satz für eine Nachricht.",
+            "es": "Una frase lista para poner en un mensaje."
           }
         }
       ]
@@ -594,11 +821,15 @@
       "key": "get_stats",
       "label": {
         "en": "Last.fm: listening statistics",
-        "fr": "Last.fm : statistiques d’écoute"
+        "fr": "Last.fm : statistiques d’écoute",
+        "de": "Last.fm: Hörstatistiken",
+        "es": "Last.fm: estadísticas de escucha"
       },
       "description": {
         "en": "Scrobbles of the day and in total, top artist, album and track.",
-        "fr": "Scrobbles du jour et au total, artiste, album et titre préférés."
+        "fr": "Scrobbles du jour et au total, artiste, album et titre préférés.",
+        "de": "Scrobbles des Tages und insgesamt, Top-Künstler, -Album und -Titel.",
+        "es": "Scrobbles del día y en total, artista, álbum y canción favoritos."
       },
       "timeout_seconds": 30,
       "fields": [
@@ -608,11 +839,15 @@
           "source": "devices",
           "label": {
             "en": "Profile",
-            "fr": "Profil"
+            "fr": "Profil",
+            "de": "Profil",
+            "es": "Perfil"
           },
           "description": {
             "en": "Leave empty for the first followed profile.",
-            "fr": "Laissez vide pour le premier profil suivi."
+            "fr": "Laissez vide pour le premier profil suivi.",
+            "de": "Leer lassen für das erste abonnierte Profil.",
+            "es": "Déjalo vacío para el primer perfil seguido."
           },
           "required": false
         },
@@ -621,49 +856,63 @@
           "type": "select",
           "label": {
             "en": "Period of the tops",
-            "fr": "Période des tops"
+            "fr": "Période des tops",
+            "de": "Zeitraum der Tops",
+            "es": "Periodo de los tops"
           },
           "options": [
             {
               "value": "7day",
               "label": {
                 "en": "Last 7 days",
-                "fr": "7 derniers jours"
+                "fr": "7 derniers jours",
+                "de": "Letzte 7 Tage",
+                "es": "Últimos 7 días"
               }
             },
             {
               "value": "1month",
               "label": {
                 "en": "Last month",
-                "fr": "Dernier mois"
+                "fr": "Dernier mois",
+                "de": "Letzter Monat",
+                "es": "Último mes"
               }
             },
             {
               "value": "3month",
               "label": {
                 "en": "Last 3 months",
-                "fr": "3 derniers mois"
+                "fr": "3 derniers mois",
+                "de": "Letzte 3 Monate",
+                "es": "Últimos 3 meses"
               }
             },
             {
               "value": "6month",
               "label": {
                 "en": "Last 6 months",
-                "fr": "6 derniers mois"
+                "fr": "6 derniers mois",
+                "de": "Letzte 6 Monate",
+                "es": "Últimos 6 meses"
               }
             },
             {
               "value": "12month",
               "label": {
                 "en": "Last 12 months",
-                "fr": "12 derniers mois"
+                "fr": "12 derniers mois",
+                "de": "Letzte 12 Monate",
+                "es": "Últimos 12 meses"
               }
             },
             {
               "value": "overall",
               "label": {
                 "en": "All time",
-                "fr": "Depuis toujours"
+                "fr": "Depuis toujours",
+                "de": "Gesamte Zeit",
+                "es": "Desde siempre"
               }
             }
           ],
@@ -677,7 +926,9 @@
           "type": "string",
           "label": {
             "en": "Username",
-            "fr": "Nom d’utilisateur"
+            "fr": "Nom d’utilisateur",
+            "de": "Benutzername",
+            "es": "Nombre de usuario"
           }
         },
         {
@@ -685,7 +936,9 @@
           "type": "number",
           "label": {
             "en": "Scrobbles today",
-            "fr": "Scrobbles du jour"
+            "fr": "Scrobbles du jour",
+            "de": "Scrobbles heute",
+            "es": "Scrobbles de hoy"
           }
         },
         {
@@ -693,7 +946,9 @@
           "type": "number",
           "label": {
             "en": "Total scrobbles",
-            "fr": "Scrobbles au total"
+            "fr": "Scrobbles au total",
+            "de": "Scrobbles insgesamt",
+            "es": "Scrobbles en total"
           }
         },
         {
@@ -701,7 +956,9 @@
           "type": "string",
           "label": {
             "en": "Top artist",
-            "fr": "Artiste préféré"
+            "fr": "Artiste préféré",
+            "de": "Top-Künstler",
+            "es": "Artista favorito"
           }
         },
         {
@@ -709,7 +966,9 @@
           "type": "number",
           "label": {
             "en": "Top artist: plays",
-            "fr": "Artiste préféré : écoutes"
+            "fr": "Artiste préféré : écoutes",
+            "de": "Top-Künstler: Wiedergaben",
+            "es": "Artista favorito: escuchas"
           }
         },
         {
@@ -717,7 +976,9 @@
           "type": "string",
           "label": {
             "en": "Top album",
-            "fr": "Album préféré"
+            "fr": "Album préféré",
+            "de": "Top-Album",
+            "es": "Álbum favorito"
           }
         },
         {
@@ -725,7 +986,9 @@
           "type": "string",
           "label": {
             "en": "Top track",
-            "fr": "Titre préféré"
+            "fr": "Titre préféré",
+            "de": "Top-Titel",
+            "es": "Canción favorita"
           }
         },
         {
@@ -733,11 +996,15 @@
           "type": "string",
           "label": {
             "en": "Summary",
-            "fr": "Résumé"
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
           },
           "description": {
             "en": "A sentence ready to put in a message.",
-            "fr": "Une phrase prête à mettre dans un message."
+            "fr": "Une phrase prête à mettre dans un message.",
+            "de": "Ein fertiger Satz für eine Nachricht.",
+            "es": "Una frase lista para poner en un mensaje."
           }
         }
       ]
@@ -746,11 +1013,15 @@
       "key": "love_track",
       "label": {
         "en": "Last.fm: love a track",
-        "fr": "Last.fm : aimer un titre"
+        "fr": "Last.fm : aimer un titre",
+        "de": "Last.fm: Titel lieben",
+        "es": "Last.fm: marcar como favorita"
       },
       "description": {
         "en": "Adds a track to the loved tracks of the linked account.",
-        "fr": "Ajoute un titre aux coups de cœur du compte lié."
+        "fr": "Ajoute un titre aux coups de cœur du compte lié.",
+        "de": "Fügt einen Titel zu den Lieblingstiteln des verknüpften Kontos hinzu.",
+        "es": "Añade una canción a las favoritas de la cuenta vinculada."
       },
       "timeout_seconds": 20,
       "fields": [
@@ -759,11 +1030,15 @@
           "type": "string",
           "label": {
             "en": "Artist",
-            "fr": "Artiste"
+            "fr": "Artiste",
+            "de": "Künstler",
+            "es": "Artista"
           },
           "description": {
             "en": "Leave artist and track empty for the track playing now (or the last one played) on the linked account. Scene variables accepted.",
-            "fr": "Laissez artiste et titre vides pour le titre en cours (ou le dernier écouté) du compte lié. Variables de scène acceptées."
+            "fr": "Laissez artiste et titre vides pour le titre en cours (ou le dernier écouté) du compte lié. Variables de scène acceptées.",
+            "de": "Künstler und Titel leer lassen für den gerade laufenden (oder zuletzt gehörten) Titel des verknüpften Kontos. Szenenvariablen sind erlaubt.",
+            "es": "Deja artista y canción vacíos para la canción que suena ahora (o la última reproducida) en la cuenta vinculada. Se aceptan variables de escena."
           },
           "required": false
         },
@@ -772,7 +1047,9 @@
           "type": "string",
           "label": {
             "en": "Track",
-            "fr": "Titre"
+            "fr": "Titre",
+            "de": "Titel",
+            "es": "Canción"
           },
           "required": false
         }
@@ -783,7 +1060,9 @@
           "type": "string",
           "label": {
             "en": "Artist",
-            "fr": "Artiste"
+            "fr": "Artiste",
+            "de": "Künstler",
+            "es": "Artista"
           }
         },
         {
@@ -791,7 +1070,9 @@
           "type": "string",
           "label": {
             "en": "Track",
-            "fr": "Titre"
+            "fr": "Titre",
+            "de": "Titel",
+            "es": "Canción"
           }
         }
       ]
@@ -800,11 +1081,15 @@
       "key": "unlove_track",
       "label": {
         "en": "Last.fm: unlove a track",
-        "fr": "Last.fm : ne plus aimer un titre"
+        "fr": "Last.fm : ne plus aimer un titre",
+        "de": "Last.fm: Titel nicht mehr lieben",
+        "es": "Last.fm: quitar de favoritas"
       },
       "description": {
         "en": "Removes a track from the loved tracks of the linked account.",
-        "fr": "Retire un titre des coups de cœur du compte lié."
+        "fr": "Retire un titre des coups de cœur du compte lié.",
+        "de": "Entfernt einen Titel aus den Lieblingstiteln des verknüpften Kontos.",
+        "es": "Quita una canción de las favoritas de la cuenta vinculada."
       },
       "timeout_seconds": 20,
       "fields": [
@@ -813,11 +1098,15 @@
           "type": "string",
           "label": {
             "en": "Artist",
-            "fr": "Artiste"
+            "fr": "Artiste",
+            "de": "Künstler",
+            "es": "Artista"
           },
           "description": {
             "en": "Leave artist and track empty for the track playing now (or the last one played) on the linked account. Scene variables accepted.",
-            "fr": "Laissez artiste et titre vides pour le titre en cours (ou le dernier écouté) du compte lié. Variables de scène acceptées."
+            "fr": "Laissez artiste et titre vides pour le titre en cours (ou le dernier écouté) du compte lié. Variables de scène acceptées.",
+            "de": "Künstler und Titel leer lassen für den gerade laufenden (oder zuletzt gehörten) Titel des verknüpften Kontos. Szenenvariablen sind erlaubt.",
+            "es": "Deja artista y canción vacíos para la canción que suena ahora (o la última reproducida) en la cuenta vinculada. Se aceptan variables de escena."
           },
           "required": false
         },
@@ -826,7 +1115,9 @@
           "type": "string",
           "label": {
             "en": "Track",
-            "fr": "Titre"
+            "fr": "Titre",
+            "de": "Titel",
+            "es": "Canción"
           },
           "required": false
         }
@@ -837,7 +1128,9 @@
           "type": "string",
           "label": {
             "en": "Artist",
-            "fr": "Artiste"
+            "fr": "Artiste",
+            "de": "Künstler",
+            "es": "Artista"
           }
         },
         {
@@ -845,7 +1138,9 @@
           "type": "string",
           "label": {
             "en": "Track",
-            "fr": "Titre"
+            "fr": "Titre",
+            "de": "Titel",
+            "es": "Canción"
           }
         }
       ]
@@ -856,11 +1151,15 @@
       "key": "now_playing",
       "label": {
         "en": "Last.fm now playing",
-        "fr": "Last.fm en écoute"
+        "fr": "Last.fm en écoute",
+        "de": "Last.fm läuft gerade",
+        "es": "Last.fm sonando ahora"
       },
       "description": {
         "en": "The track playing now with its cover, scrobble counters and a Love button.",
-        "fr": "Le titre en cours avec sa pochette, les compteurs et un bouton J’aime."
+        "fr": "Le titre en cours avec sa pochette, les compteurs et un bouton J’aime.",
+        "de": "Der laufende Titel mit Cover, Scrobble-Zählern und einer Lieben-Schaltfläche.",
+        "es": "La canción que suena con su portada, los contadores de scrobbles y un botón de favorita."
       },
       "icon": "music",
       "settings": [
@@ -870,11 +1169,15 @@
           "source": "devices",
           "label": {
             "en": "Profile",
-            "fr": "Profil"
+            "fr": "Profil",
+            "de": "Profil",
+            "es": "Perfil"
           },
           "description": {
             "en": "Leave empty for the first followed profile.",
-            "fr": "Laissez vide pour le premier profil suivi."
+            "fr": "Laissez vide pour le premier profil suivi.",
+            "de": "Leer lassen für das erste abonnierte Profil.",
+            "es": "Déjalo vacío para el primer perfil seguido."
           },
           "required": false
         }
@@ -884,11 +1187,15 @@
       "key": "recent_tracks",
       "label": {
         "en": "Last.fm recent tracks",
-        "fr": "Last.fm écoutes récentes"
+        "fr": "Last.fm écoutes récentes",
+        "de": "Last.fm zuletzt gehört",
+        "es": "Last.fm escuchas recientes"
       },
       "description": {
         "en": "The latest scrobbles with their covers.",
-        "fr": "Les derniers scrobbles avec leurs pochettes."
+        "fr": "Les derniers scrobbles avec leurs pochettes.",
+        "de": "Die neuesten Scrobbles mit ihren Covern.",
+        "es": "Los últimos scrobbles con sus portadas."
       },
       "icon": "list",
       "settings": [
@@ -898,11 +1205,15 @@
           "source": "devices",
           "label": {
             "en": "Profile",
-            "fr": "Profil"
+            "fr": "Profil",
+            "de": "Profil",
+            "es": "Perfil"
           },
           "description": {
             "en": "Leave empty for the first followed profile.",
-            "fr": "Laissez vide pour le premier profil suivi."
+            "fr": "Laissez vide pour le premier profil suivi.",
+            "de": "Leer lassen für das erste abonnierte Profil.",
+            "es": "Déjalo vacío para el primer perfil seguido."
           },
           "required": false
         },
@@ -911,7 +1222,9 @@
           "type": "number",
           "label": {
             "en": "Tracks shown",
-            "fr": "Titres affichés"
+            "fr": "Titres affichés",
+            "de": "Angezeigte Titel",
+            "es": "Canciones mostradas"
           },
           "min": 1,
           "max": 8,
@@ -924,11 +1237,15 @@
       "key": "top_charts",
       "label": {
         "en": "Last.fm top charts",
-        "fr": "Last.fm tops"
+        "fr": "Last.fm tops",
+        "de": "Last.fm Top-Listen",
+        "es": "Last.fm tops"
       },
       "description": {
         "en": "Top artists, albums or tracks over a period.",
-        "fr": "Top artistes, albums ou titres sur une période."
+        "fr": "Top artistes, albums ou titres sur une période.",
+        "de": "Top-Künstler, -Alben oder -Titel über einen Zeitraum.",
+        "es": "Top de artistas, álbumes o canciones en un periodo."
       },
       "icon": "award",
       "settings": [
@@ -938,11 +1255,15 @@
           "source": "devices",
           "label": {
             "en": "Profile",
-            "fr": "Profil"
+            "fr": "Profil",
+            "de": "Profil",
+            "es": "Perfil"
           },
           "description": {
             "en": "Leave empty for the first followed profile.",
-            "fr": "Laissez vide pour le premier profil suivi."
+            "fr": "Laissez vide pour le premier profil suivi.",
+            "de": "Leer lassen für das erste abonnierte Profil.",
+            "es": "Déjalo vacío para el primer perfil seguido."
           },
           "required": false
         },
@@ -951,28 +1272,36 @@
           "type": "select",
           "label": {
             "en": "Chart",
-            "fr": "Classement"
+            "fr": "Classement",
+            "de": "Liste",
+            "es": "Clasificación"
           },
           "options": [
             {
               "value": "artists",
               "label": {
                 "en": "Artists",
-                "fr": "Artistes"
+                "fr": "Artistes",
+                "de": "Künstler",
+                "es": "Artistas"
               }
             },
             {
               "value": "albums",
               "label": {
                 "en": "Albums (cover grid)",
-                "fr": "Albums (grille de pochettes)"
+                "fr": "Albums (grille de pochettes)",
+                "de": "Alben (Cover-Raster)",
+                "es": "Álbumes (cuadrícula de portadas)"
               }
             },
             {
               "value": "tracks",
               "label": {
                 "en": "Tracks",
-                "fr": "Titres"
+                "fr": "Titres",
+                "de": "Titel",
+                "es": "Canciones"
               }
             }
           ],
@@ -984,49 +1313,63 @@
           "type": "select",
           "label": {
             "en": "Period",
-            "fr": "Période"
+            "fr": "Période",
+            "de": "Zeitraum",
+            "es": "Periodo"
           },
           "options": [
             {
               "value": "7day",
               "label": {
                 "en": "Last 7 days",
-                "fr": "7 derniers jours"
+                "fr": "7 derniers jours",
+                "de": "Letzte 7 Tage",
+                "es": "Últimos 7 días"
               }
             },
             {
               "value": "1month",
               "label": {
                 "en": "Last month",
-                "fr": "Dernier mois"
+                "fr": "Dernier mois",
+                "de": "Letzter Monat",
+                "es": "Último mes"
               }
             },
             {
               "value": "3month",
               "label": {
                 "en": "Last 3 months",
-                "fr": "3 derniers mois"
+                "fr": "3 derniers mois",
+                "de": "Letzte 3 Monate",
+                "es": "Últimos 3 meses"
               }
             },
             {
               "value": "6month",
               "label": {
                 "en": "Last 6 months",
-                "fr": "6 derniers mois"
+                "fr": "6 derniers mois",
+                "de": "Letzte 6 Monate",
+                "es": "Últimos 6 meses"
               }
             },
             {
               "value": "12month",
               "label": {
                 "en": "Last 12 months",
-                "fr": "12 derniers mois"
+                "fr": "12 derniers mois",
+                "de": "Letzte 12 Monate",
+                "es": "Últimos 12 meses"
               }
             },
             {
               "value": "overall",
               "label": {
                 "en": "All time",
-                "fr": "Depuis toujours"
+                "fr": "Depuis toujours",
+                "de": "Gesamte Zeit",
+                "es": "Desde siempre"
               }
             }
           ],
@@ -1038,11 +1381,15 @@
           "type": "number",
           "label": {
             "en": "Entries shown",
-            "fr": "Entrées affichées"
+            "fr": "Entrées affichées",
+            "de": "Angezeigte Einträge",
+            "es": "Entradas mostradas"
           },
           "description": {
             "en": "Up to 12 for albums, 8 otherwise.",
-            "fr": "Jusqu’à 12 pour les albums, 8 sinon."
+            "fr": "Jusqu’à 12 pour les albums, 8 sinon.",
+            "de": "Bis zu 12 bei Alben, sonst 8.",
+            "es": "Hasta 12 para álbumes, 8 en los demás casos."
           },
           "min": 1,
           "max": 12,

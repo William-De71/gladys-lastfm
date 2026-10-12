@@ -7,7 +7,10 @@
 //   - `shared_secret`  the secret of that API account — only needed to link
 //                      an account (signed calls: "love" a track);
 //   - `usernames`      the Last.fm profiles to follow, separated by commas;
-//   - `poll_interval`  how often the profiles are read, in seconds.
+//   - `poll_interval`  how often the profiles are read, in seconds;
+//   - `language`       language of the texts Gladys does not ask for in a
+//                      language (device names, scene summaries): `auto`
+//                      follows the language of the last widget request.
 //
 // Internal keys, outside the config_schema (never shown in the UI):
 //   - `session_key` / `session_user`  the session of the linked account,
@@ -18,12 +21,15 @@
 //                                     after a restart.
 // -----------------------------------------------------------------------------
 
+import { isLanguage } from './i18n.js';
+
 const POLL_INTERVAL = { min: 15, max: 300, default: 30 };
 const MAX_USERS = 10;
 // Last.fm usernames: 2 to 15 characters, a letter first, then letters, digits,
 // "_" and "-". Anything else cannot be a profile and is dropped.
 const USERNAME_REGEX = /^[A-Za-z][A-Za-z0-9_-]{1,14}$/;
 const API_KEY_REGEX = /^[0-9a-f]{32}$/i;
+const AUTO_LANGUAGE = 'auto';
 
 const INTERNAL_KEYS = {
   sessionKey: 'session_key',
@@ -87,8 +93,9 @@ function parseUsernames(raw) {
  * @description Normalize the raw config object from the host API.
  * @param {object} [rawConfig] - The raw config values.
  * @returns {{ apiKey: string, sharedSecret: string, usernames: string[],
- * pollInterval: number, sessionKey: string, sessionUser: string }} The config
- * (poll interval in seconds).
+ * pollInterval: number, language: string, sessionKey: string,
+ * sessionUser: string }} The config (poll interval in seconds, language 'auto'
+ * or a language code).
  * @example
  * normalizeConfig({ api_key: '0123…', usernames: 'rj' });
  */
@@ -100,6 +107,7 @@ function normalizeConfig(rawConfig = {}) {
     sharedSecret: readString(config.shared_secret),
     usernames: parseUsernames(config.usernames),
     pollInterval: readNumber(config.poll_interval, POLL_INTERVAL),
+    language: isLanguage(config.language) ? config.language : AUTO_LANGUAGE,
     sessionKey: readString(config[INTERNAL_KEYS.sessionKey]),
     sessionUser: readString(config[INTERNAL_KEYS.sessionUser]),
   };
@@ -136,6 +144,7 @@ function isLinkedUser(config, username) {
 
 export {
   POLL_INTERVAL,
+  AUTO_LANGUAGE,
   MAX_USERS,
   INTERNAL_KEYS,
   normalizeConfig,
