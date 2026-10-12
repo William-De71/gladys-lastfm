@@ -1,0 +1,322 @@
+{
+  "device": {
+    "external_id": "ext:lastfm:user:rj",
+    "should_poll": false,
+    "params": ["LASTFM_USER"],
+    "features": [
+      {
+        "external_id": "ext:lastfm:user:rj:playing",
+        "category": "music",
+        "type": "playback_state",
+        "min": 0,
+        "max": 1,
+        "read_only": true,
+        "has_feedback": false
+      },
+      {
+        "external_id": "ext:lastfm:user:rj:now_playing",
+        "category": "text",
+        "type": "text",
+        "min": 0,
+        "max": 0,
+        "read_only": true,
+        "has_feedback": false
+      },
+      {
+        "external_id": "ext:lastfm:user:rj:today",
+        "category": "counter-sensor",
+        "type": "integer",
+        "min": 0,
+        "max": 2000,
+        "read_only": true,
+        "has_feedback": false
+      },
+      {
+        "external_id": "ext:lastfm:user:rj:total",
+        "category": "counter-sensor",
+        "type": "integer",
+        "min": 0,
+        "max": 100000000,
+        "read_only": true,
+        "has_feedback": false
+      }
+    ]
+  },
+  "manifest": {
+    "config_schema": [
+      {
+        "key": "intro",
+        "type": "section"
+      },
+      {
+        "key": "api_key",
+        "type": "secret"
+      },
+      {
+        "key": "shared_secret",
+        "type": "secret"
+      },
+      {
+        "key": "usernames",
+        "type": "string"
+      },
+      {
+        "key": "poll_interval",
+        "type": "number"
+      },
+      {
+        "key": "account_intro",
+        "type": "section"
+      },
+      {
+        "key": "account",
+        "type": "account_link"
+      }
+    ],
+    "actions": ["test_connection", "unlink_account"],
+    "scene_triggers": [
+      {
+        "key": "track_started",
+        "fields": ["user", "artist"],
+        "variables": [
+          {
+            "key": "user_name",
+            "type": "string"
+          },
+          {
+            "key": "artist",
+            "type": "string"
+          },
+          {
+            "key": "track",
+            "type": "string"
+          },
+          {
+            "key": "album",
+            "type": "string"
+          },
+          {
+            "key": "loved",
+            "type": "boolean"
+          },
+          {
+            "key": "url",
+            "type": "string"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "listening_started",
+        "fields": ["user"],
+        "variables": [
+          {
+            "key": "user_name",
+            "type": "string"
+          },
+          {
+            "key": "artist",
+            "type": "string"
+          },
+          {
+            "key": "track",
+            "type": "string"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "listening_stopped",
+        "fields": ["user"],
+        "variables": [
+          {
+            "key": "user_name",
+            "type": "string"
+          },
+          {
+            "key": "artist",
+            "type": "string"
+          },
+          {
+            "key": "track",
+            "type": "string"
+          },
+          {
+            "key": "duration_minutes",
+            "type": "number"
+          },
+          {
+            "key": "tracks_played",
+            "type": "number"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "track_loved",
+        "fields": ["user", "artist"],
+        "variables": [
+          {
+            "key": "user_name",
+            "type": "string"
+          },
+          {
+            "key": "artist",
+            "type": "string"
+          },
+          {
+            "key": "track",
+            "type": "string"
+          },
+          {
+            "key": "url",
+            "type": "string"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "scene_actions": [
+      {
+        "key": "get_now_playing",
+        "fields": ["user"],
+        "outputs": [
+          {
+            "key": "user_name",
+            "type": "string"
+          },
+          {
+            "key": "playing",
+            "type": "boolean"
+          },
+          {
+            "key": "artist",
+            "type": "string"
+          },
+          {
+            "key": "track",
+            "type": "string"
+          },
+          {
+            "key": "album",
+            "type": "string"
+          },
+          {
+            "key": "loved",
+            "type": "boolean"
+          },
+          {
+            "key": "url",
+            "type": "string"
+          },
+          {
+            "key": "played_at",
+            "type": "string"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "get_stats",
+        "fields": ["user", "period"],
+        "outputs": [
+          {
+            "key": "user_name",
+            "type": "string"
+          },
+          {
+            "key": "scrobbles_today",
+            "type": "number"
+          },
+          {
+            "key": "scrobbles_total",
+            "type": "number"
+          },
+          {
+            "key": "top_artist",
+            "type": "string"
+          },
+          {
+            "key": "top_artist_plays",
+            "type": "number"
+          },
+          {
+            "key": "top_album",
+            "type": "string"
+          },
+          {
+            "key": "top_track",
+            "type": "string"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "love_track",
+        "fields": ["artist", "track"],
+        "outputs": [
+          {
+            "key": "artist",
+            "type": "string"
+          },
+          {
+            "key": "track",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "unlove_track",
+        "fields": ["artist", "track"],
+        "outputs": [
+          {
+            "key": "artist",
+            "type": "string"
+          },
+          {
+            "key": "track",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "widgets": [
+      {
+        "key": "now_playing",
+        "settings": ["user"],
+        "options": {}
+      },
+      {
+        "key": "recent_tracks",
+        "settings": ["user", "count"],
+        "options": {}
+      },
+      {
+        "key": "top_charts",
+        "settings": ["user", "kind", "period", "count"],
+        "options": {
+          "kind": ["artists", "albums", "tracks"],
+          "period": ["7day", "1month", "3month", "6month", "12month", "overall"]
+        }
+      }
+    ]
+  }
+}
