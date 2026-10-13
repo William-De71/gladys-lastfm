@@ -100,6 +100,8 @@ To love or unlove: leave **artist and track empty** to target the track playing 
 | **Last.fm recent tracks** | the latest tracks with their covers; the track playing now and the loved ones are badged                     |
 | **Last.fm top charts**    | top artists, albums (as a cover grid) or tracks over 7 days, 1, 3, 6 or 12 months, or all time               |
 
+![The "Last.fm now playing" widget (cover, today and total scrobbles, Love button), next to "Last.fm recent tracks" (the latest tracks, the one playing now and the loved ones badged) and "Last.fm top charts" (top albums of the month as a cover grid), with a made-up profile and made-up covers — generated illustration, not a screenshot](https://raw.githubusercontent.com/William-De71/gladys-lastfm/main/docs/assets/widgets.en.png)
+
 Each widget is set to a profile (empty = the first followed profile). The "now playing" widget refreshes as soon as a new track starts.
 
 Last.fm has not served artist pictures since 2019: the top artists show without images.

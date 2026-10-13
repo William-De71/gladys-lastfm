@@ -7,11 +7,15 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/William-De71/gladys-lastfm/release.yml?branch=main&label=CI)](https://github.com/William-De71/gladys-lastfm/actions/workflows/release.yml)
 [![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.1.1-2f6fb5)](https://gladysassistant.com)
 
+![Last.fm for Gladys Assistant](cover.jpg)
+
 External [Gladys Assistant](https://gladysassistant.com) integration for **Last.fm**: what you are listening to,
 your scrobbles, music-driven **scenes** and **dashboard widgets**, built on `@gladysassistant/integration-sdk` 0.15.
 
 Last.fm records the tracks played on Spotify, Deezer, Apple Music, YouTube Music, Plex, Sonos and many more: one
 integration covers every player that scrobbles.
+
+![The "Last.fm now playing" widget (cover, today and total scrobbles, Love button), next to "Last.fm recent tracks" (the latest tracks, the one playing now and the loved ones badged) and "Last.fm top charts" (top albums of the month as a cover grid), with a made-up profile and made-up covers — generated illustration, not a screenshot](docs/assets/widgets.en.png)
 
 User documentation: [English](docs/en.md) · [Français](docs/fr.md) · [Deutsch](docs/de.md) · [Español](docs/es.md).
 

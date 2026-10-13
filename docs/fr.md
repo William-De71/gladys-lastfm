@@ -100,6 +100,8 @@ Pour aimer ou ne plus aimer : laissez **artiste et titre vides** pour viser le t
 | **Last.fm écoutes récentes** | les derniers titres avec leur pochette ; le titre en cours et les coups de cœur sont signalés                        |
 | **Last.fm tops**             | top artistes, albums (en grille de pochettes) ou titres sur 7 jours, 1, 3, 6 ou 12 mois, ou depuis toujours          |
 
+![Le widget « Last.fm en écoute » (pochette, scrobbles du jour et au total, bouton J’aime), à côté de « Last.fm écoutes récentes » (les derniers titres, celui en cours et les titres aimés signalés) et de « Last.fm tops » (top albums du mois en grille de pochettes), avec un profil et des pochettes inventés — illustration générée, pas une capture d’écran](https://raw.githubusercontent.com/William-De71/gladys-lastfm/main/docs/assets/widgets.fr.png)
+
 Chaque widget se règle sur un profil (vide = le premier profil suivi). Le widget « en écoute » se met à jour dès qu'un nouveau titre commence.
 
 Last.fm ne fournit plus de photos d'artistes depuis 2019 : le top artistes s'affiche donc sans image.

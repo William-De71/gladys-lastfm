@@ -100,6 +100,8 @@ Zum Lieben oder Nicht-mehr-Lieben: Lass **Künstler und Titel leer**, um den ger
 | **Last.fm zuletzt gehört** | die letzten Titel mit ihren Covern; der laufende Titel und die Lieblingstitel sind markiert                                |
 | **Last.fm Top-Listen**     | Top-Künstler, -Alben (als Cover-Raster) oder -Titel über 7 Tage, 1, 3, 6 oder 12 Monate oder die gesamte Zeit              |
 
+![Das Widget „Last.fm läuft gerade“ (Cover, Scrobbles heute und insgesamt, Lieben-Schaltfläche) neben „Last.fm zuletzt gehört“ (die letzten Titel, der laufende und die geliebten markiert) und „Last.fm Top-Listen“ (Top-Alben des Monats als Cover-Raster), mit erfundenem Profil und erfundenen Covern — generierte Illustration, kein Screenshot](https://raw.githubusercontent.com/William-De71/gladys-lastfm/main/docs/assets/widgets.de.png)
+
 Jedes Widget wird auf ein Profil eingestellt (leer = das erste abonnierte Profil). Das Widget „läuft gerade“ aktualisiert sich, sobald ein neuer Titel beginnt.
 
 Last.fm liefert seit 2019 keine Künstlerfotos mehr: Die Top-Künstler erscheinen daher ohne Bild.

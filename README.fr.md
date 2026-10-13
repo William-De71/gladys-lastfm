@@ -7,12 +7,16 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/William-De71/gladys-lastfm/release.yml?branch=main&label=CI)](https://github.com/William-De71/gladys-lastfm/actions/workflows/release.yml)
 [![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.1.1-2f6fb5)](https://gladysassistant.com)
 
+![Last.fm pour Gladys Assistant](cover.jpg)
+
 Intégration externe [Gladys Assistant](https://gladysassistant.com) pour **Last.fm** : ce que vous écoutez, vos
 scrobbles, des **scènes** pilotées par la musique et des **widgets de tableau de bord**, construite sur
 `@gladysassistant/integration-sdk` 0.15.
 
 Last.fm enregistre les titres écoutés sur Spotify, Deezer, Apple Music, YouTube Music, Plex, Sonos et bien
 d'autres : une seule intégration couvre tous les lecteurs qui scrobblent.
+
+![Le widget « Last.fm en écoute » (pochette, scrobbles du jour et au total, bouton J’aime), à côté de « Last.fm écoutes récentes » (les derniers titres, celui en cours et les titres aimés signalés) et de « Last.fm tops » (top albums du mois en grille de pochettes), avec un profil et des pochettes inventés — illustration générée, pas une capture d’écran](docs/assets/widgets.fr.png)
 
 Documentation utilisateur : [English](docs/en.md) · [Français](docs/fr.md) · [Deutsch](docs/de.md) ·
 [Español](docs/es.md).

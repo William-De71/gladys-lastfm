@@ -100,6 +100,8 @@ Para marcar o quitar una favorita: deja **artista y canción vacíos** para apun
 | **Last.fm escuchas recientes** | las últimas canciones con su portada; la canción en curso y las favoritas están señaladas                               |
 | **Last.fm tops**               | top de artistas, álbumes (en cuadrícula de portadas) o canciones en 7 días, 1, 3, 6 o 12 meses, o desde siempre         |
 
+![El widget «Last.fm sonando ahora» (portada, scrobbles de hoy y en total, botón Me encanta), junto a «Last.fm escuchas recientes» (las últimas canciones, la que suena y las favoritas marcadas) y «Last.fm tops» (top de álbumes del mes en cuadrícula de portadas), con un perfil y portadas inventados — ilustración generada, no una captura de pantalla](https://raw.githubusercontent.com/William-De71/gladys-lastfm/main/docs/assets/widgets.es.png)
+
 Cada widget se configura con un perfil (vacío = el primer perfil seguido). El widget «sonando ahora» se actualiza en cuanto empieza una canción nueva.
 
 Last.fm ya no ofrece fotos de artistas desde 2019: el top de artistas se muestra sin imágenes.
