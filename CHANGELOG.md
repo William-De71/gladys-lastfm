@@ -5,6 +5,12 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions
 follow [Semantic Versioning](https://semver.org/). This file is generated at
 each release from the Conventional Commits: do not edit it by hand.
 
+## [1.1.1] - 2026-10-24
+
+### Security
+
+- build the image on Node.js 24.22.1 or later ([925ed32](https://github.com/William-De71/gladys-lastfm/commit/925ed328fcf506a745441451af7a3cf218a03599))
+
 ## [1.1.0] - 2026-10-12
 
 ### Added
@@ -21,4 +27,5 @@ each release from the Conventional Commits: do not edit it by hand.
 
 * Last.fm listening devices, music scene triggers and dashboard widgets ([4be2e7a](https://github.com/William-De71/gladys-lastfm/commit/4be2e7a4b5af79da115392d922579d3e46f31a35))
 
+[1.1.1]: https://github.com/William-De71/gladys-lastfm/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/William-De71/gladys-lastfm/compare/v1.0.0...v1.1.0
