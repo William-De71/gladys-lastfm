@@ -5,6 +5,12 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions
 follow [Semantic Versioning](https://semver.org/). This file is generated at
 each release from the Conventional Commits: do not edit it by hand.
 
+## [1.2.0] - 2026-10-25
+
+### Added
+
+- require Gladys 5.3, publish the now playing as music features and declare catalog keywords ([a828c8b](https://github.com/William-De71/gladys-lastfm/commit/a828c8bb0a504d9b0b5562f073f3d300df1f2d4b))
+
 ## [1.1.1] - 2026-10-24
 
 ### Security
@@ -27,5 +33,6 @@ each release from the Conventional Commits: do not edit it by hand.
 
 * Last.fm listening devices, music scene triggers and dashboard widgets ([4be2e7a](https://github.com/William-De71/gladys-lastfm/commit/4be2e7a4b5af79da115392d922579d3e46f31a35))
 
+[1.2.0]: https://github.com/William-De71/gladys-lastfm/compare/v1.1.1...v1.2.0
 [1.1.1]: https://github.com/William-De71/gladys-lastfm/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/William-De71/gladys-lastfm/compare/v1.0.0...v1.1.0

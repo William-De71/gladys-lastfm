@@ -8,8 +8,8 @@
     "de": "Was du auf Last.fm hörst: Scrobbles, Musikszenen und Widgets.",
     "es": "Lo que escuchas en Last.fm: scrobbles, escenas musicales y widgets."
   },
-  "version": "1.1.1",
-  "docker_image": "ghcr.io/william-de71/gladys-lastfm:1.1.1",
+  "version": "1.2.0",
+  "docker_image": "ghcr.io/william-de71/gladys-lastfm:1.2.0",
   "gladys_version": ">=5.3.0",
   "categories": ["multimedia"],
   "keywords": [
