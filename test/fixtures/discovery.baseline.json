@@ -39,6 +39,42 @@
         "max": 100000000,
         "read_only": true,
         "has_feedback": false
+      },
+      {
+        "external_id": "ext:lastfm:user:rj:music_title",
+        "category": "music",
+        "type": "title",
+        "min": 0,
+        "max": 0,
+        "read_only": true,
+        "has_feedback": false
+      },
+      {
+        "external_id": "ext:lastfm:user:rj:music_artist",
+        "category": "music",
+        "type": "artist",
+        "min": 0,
+        "max": 0,
+        "read_only": true,
+        "has_feedback": false
+      },
+      {
+        "external_id": "ext:lastfm:user:rj:music_album",
+        "category": "music",
+        "type": "album",
+        "min": 0,
+        "max": 0,
+        "read_only": true,
+        "has_feedback": false
+      },
+      {
+        "external_id": "ext:lastfm:user:rj:music_artwork",
+        "category": "music",
+        "type": "artwork",
+        "min": 0,
+        "max": 0,
+        "read_only": true,
+        "has_feedback": false
       }
     ]
   },

@@ -11,7 +11,15 @@
 //   - `now_playing`  text: "Artist – Track", the track playing now, or the
 //                    last one played (never emptied: "what was that song?");
 //   - `today`        counter: scrobbles since midnight (Gladys time zone);
-//   - `total`        counter: scrobbles since the account was created.
+//   - `total`        counter: scrobbles since the account was created;
+//   - `music_title`, `music_artist`, `music_album`, `music_artwork`: the
+//                    now playing of the `music` types of Gladys 5.3.0 (title,
+//                    artist, album, cover key), added after 1.1.1 under new
+//                    keys and published through publishNowPlaying. Empty
+//                    when nothing is playing (unlike `now_playing`). No
+//                    duration nor position: user.getRecentTracks gives
+//                    neither, and a Last.fm profile is not a player (no
+//                    command), so the dashboard music box does not offer it.
 //
 // The external id is built on the lowercased username (Last.fm usernames are
 // case-insensitive): "RJ" and "rj" are the same device.
@@ -20,6 +28,7 @@
 import { DEVICE_FEATURE_CATEGORIES, DEVICE_FEATURE_TYPES } from '@gladysassistant/integration-sdk';
 import { t } from './i18n.js';
 import { trackLabel } from './tracks.js';
+import { imageKeyFromUrl } from './images.js';
 
 const DEVICE_TYPE = 'user';
 const FEATURE_KEYS = {
@@ -27,7 +36,18 @@ const FEATURE_KEYS = {
   NOW_PLAYING: 'now_playing',
   TODAY: 'today',
   TOTAL: 'total',
+  MUSIC_TITLE: 'music_title',
+  MUSIC_ARTIST: 'music_artist',
+  MUSIC_ALBUM: 'music_album',
+  MUSIC_ARTWORK: 'music_artwork',
 };
+// The music feature types publishNowPlaying fills, by feature key.
+const MUSIC_FEATURES = [
+  [FEATURE_KEYS.MUSIC_TITLE, DEVICE_FEATURE_TYPES.MUSIC.TITLE, 'featureMusicTitle'],
+  [FEATURE_KEYS.MUSIC_ARTIST, DEVICE_FEATURE_TYPES.MUSIC.ARTIST, 'featureMusicArtist'],
+  [FEATURE_KEYS.MUSIC_ALBUM, DEVICE_FEATURE_TYPES.MUSIC.ALBUM, 'featureMusicAlbum'],
+  [FEATURE_KEYS.MUSIC_ARTWORK, DEVICE_FEATURE_TYPES.MUSIC.ARTWORK, 'featureMusicArtwork'],
+];
 const PLAYBACK_STATE = { PLAYING: 1, STOPPED: 0 };
 // Bounds of the counters: far beyond any real account (a scrobble every three
 // minutes, day and night, for a century is about 17 million).
@@ -121,8 +141,62 @@ function buildDevice(gladys, username, language = 'en') {
         min: 0,
         max: MAX_TOTAL,
       }),
+      // Never historized (the core forces it on the whole music category).
+      ...MUSIC_FEATURES.map(([key, type, name]) =>
+        sensor({
+          name: t(name, language),
+          external_id: ids.feature(key),
+          category: DEVICE_FEATURE_CATEGORIES.MUSIC,
+          type,
+          keep_history: false,
+          min: 0,
+          max: 0,
+        }),
+      ),
     ],
   };
+}
+
+/**
+ * @description The now playing of a profile, for gladys.publishNowPlaying:
+ * the track playing now, every text emptied when nothing plays (an absent
+ * key would mean "unchanged"). The cover is a Last.fm one only (the grey
+ * star placeholder is no cover); the SDK turns its URL into an artwork key
+ * and serves its bytes (300 × 300, a few dozen KB).
+ * @param {object} snapshot - `{ playing, current }`.
+ * @returns {{ title: string, artist: string, album: string, artwork_url: string|null }}
+ * The now playing.
+ * @example
+ * await gladys.publishNowPlaying(ids.device, nowPlayingOf(snapshot), {
+ *   featureExternalIds: nowPlayingFeatureIds(gladys, 'rj'),
+ * });
+ */
+function nowPlayingOf(snapshot) {
+  const track = snapshot?.playing ? snapshot.current : null;
+  if (!track) {
+    return { title: '', artist: '', album: '', artwork_url: null };
+  }
+  return {
+    title: track.name,
+    artist: track.artist,
+    album: track.album,
+    artwork_url: imageKeyFromUrl(track.image) ? track.image : null,
+  };
+}
+
+/**
+ * @description The feature external ids of the now playing, by music type
+ * (the `music_*` keys, not the SDK default `<device>:<type>`). The playback
+ * state stays the `playing` feature of 1.0.0, published by buildStates.
+ * @param {object} gladys - The GladysIntegration instance.
+ * @param {string} username - The username.
+ * @returns {object} type -> feature external id.
+ * @example
+ * nowPlayingFeatureIds(gladys, 'rj').title; // -> 'ext:lastfm:user:rj:music_title'
+ */
+function nowPlayingFeatureIds(gladys, username) {
+  const ids = idsOf(gladys, username);
+  return Object.fromEntries(MUSIC_FEATURES.map(([key, type]) => [type, ids.feature(key)]));
 }
 
 /**
@@ -174,4 +248,6 @@ export {
   usernameFromExternalId,
   buildDevice,
   buildStates,
+  nowPlayingOf,
+  nowPlayingFeatureIds,
 };

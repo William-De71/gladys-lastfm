@@ -5,7 +5,7 @@
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Latest release](https://img.shields.io/github/v/release/William-De71/gladys-lastfm?sort=semver)](https://github.com/William-De71/gladys-lastfm/releases)
 [![CI](https://img.shields.io/github/actions/workflow/status/William-De71/gladys-lastfm/release.yml?branch=main&label=CI)](https://github.com/William-De71/gladys-lastfm/actions/workflows/release.yml)
-[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.1.1-2f6fb5)](https://gladysassistant.com)
+[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.3.0-2f6fb5)](https://gladysassistant.com)
 
 ![Last.fm for Gladys Assistant](cover.jpg)
 
@@ -40,12 +40,15 @@ User documentation: [English](docs/en.md) · [Français](docs/fr.md) · [Deutsch
 
 A device per followed profile (up to 10), offered on the Discover tab, all features read-only:
 
-| Feature               | Category / type              | Notes                                              |
-| --------------------- | ---------------------------- | -------------------------------------------------- |
-| Listening             | `music` / `playback_state`   | 1 while a track is playing                         |
-| Current or last track | `text` / `text`              | "Artist – Track", never emptied                    |
-| Scrobbles today       | `counter-sensor` / `integer` | since midnight in the Gladys time zone (`TZ`)      |
-| Total scrobbles       | `counter-sensor` / `integer` | unknown counters are omitted, never published as 0 |
+| Feature                     | Category / type                                 | Notes                                              |
+| --------------------------- | ----------------------------------------------- | -------------------------------------------------- |
+| Listening                   | `music` / `playback_state`                      | 1 while a track is playing                         |
+| Current or last track       | `text` / `text`                                 | "Artist – Track", never emptied                    |
+| Scrobbles today             | `counter-sensor` / `integer`                    | since midnight in the Gladys time zone (`TZ`)      |
+| Total scrobbles             | `counter-sensor` / `integer`                    | unknown counters are omitted, never published as 0 |
+| Title, Artist, Album, Cover | `music` / `title`, `artist`, `album`, `artwork` | Gladys 5.3 now playing, empty when nothing plays   |
+
+The `music` features (since Gladys 5.3, `"music": {}`) come through `publishNowPlaying`, on changes only; the cover is served behind a key by the SDK. No duration nor position (Last.fm gives neither), and no music box on the dashboard: a profile is not a player that obeys play / pause. A device created before gets them with the **Update** button of the Discover tab.
 
 External ids: `ext:<selector>:user:<lowercased username>[:<feature>]`.
 
@@ -201,7 +204,7 @@ Node 22 or later. The tests (`node --test`) never touch the network. Beyond the 
   contents in each;
 - `test/release.test.js` covers the release script (version, changelog, bump).
 
-`gladys_version` is `>=5.1.1` (widgets, scene triggers and actions, `account_link`, `source: "devices"`).
+`gladys_version` is `>=5.3.0` (widgets, scene triggers and actions, `account_link`, `source: "devices"`; the music now playing and the catalog keywords of Gladys 5.3).
 
 ## Release and commit convention
 

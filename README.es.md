@@ -5,7 +5,7 @@
 [![Licencia: Apache-2.0](https://img.shields.io/badge/licencia-Apache--2.0-blue.svg)](LICENSE)
 [![Última versión](https://img.shields.io/github/v/release/William-De71/gladys-lastfm?sort=semver)](https://github.com/William-De71/gladys-lastfm/releases)
 [![CI](https://img.shields.io/github/actions/workflow/status/William-De71/gladys-lastfm/release.yml?branch=main&label=CI)](https://github.com/William-De71/gladys-lastfm/actions/workflows/release.yml)
-[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.1.1-2f6fb5)](https://gladysassistant.com)
+[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.3.0-2f6fb5)](https://gladysassistant.com)
 
 ![Last.fm para Gladys Assistant](cover.jpg)
 
@@ -43,12 +43,15 @@ Documentación de usuario: [English](docs/en.md) · [Français](docs/fr.md) · [
 Un dispositivo por perfil seguido (10 como máximo), propuesto en la pestaña Descubrir, todas las funcionalidades de
 solo lectura:
 
-| Funcionalidad           | Categoría / tipo             | Notas                                                     |
-| ----------------------- | ---------------------------- | --------------------------------------------------------- |
-| Escuchando              | `music` / `playback_state`   | 1 mientras suena una canción                              |
-| Canción actual o última | `text` / `text`              | «Artista – Canción», nunca se vacía                       |
-| Scrobbles de hoy        | `counter-sensor` / `integer` | desde medianoche, en la zona horaria de Gladys (`TZ`)     |
-| Scrobbles en total      | `counter-sensor` / `integer` | un contador desconocido se omite, nunca se publica como 0 |
+| Funcionalidad                   | Categoría / tipo                                | Notas                                                           |
+| ------------------------------- | ----------------------------------------------- | --------------------------------------------------------------- |
+| Escuchando                      | `music` / `playback_state`                      | 1 mientras suena una canción                                    |
+| Canción actual o última         | `text` / `text`                                 | «Artista – Canción», nunca se vacía                             |
+| Scrobbles de hoy                | `counter-sensor` / `integer`                    | desde medianoche, en la zona horaria de Gladys (`TZ`)           |
+| Scrobbles en total              | `counter-sensor` / `integer`                    | un contador desconocido se omite, nunca se publica como 0       |
+| Título, Artista, Álbum, Portada | `music` / `title`, `artist`, `album`, `artwork` | reproducción en curso de Gladys 5.3, vacía cuando no suena nada |
+
+Las funcionalidades `music` (desde Gladys 5.3, `"music": {}`) pasan por `publishNowPlaying`, solo cuando cambian; el SDK sirve la portada detrás de una clave. Ni duración ni posición (Last.fm no las da), y ninguna caja de música en el panel: un perfil no es un reproductor que obedezca a reproducir / pausa. Un dispositivo creado antes las obtiene con el botón **Actualizar** de la pestaña Descubrir.
 
 Identificadores externos: `ext:<selector>:user:<nombre de usuario en minúsculas>[:<funcionalidad>]`.
 
@@ -202,7 +205,7 @@ Node 22 o posterior. Las pruebas (`node --test`) nunca acceden a la red. Además
   contenidos de widget en cada uno;
 - `test/release.test.js` cubre el script de release (versión, changelog, cambio de versión).
 
-`gladys_version` es `>=5.1.1` (widgets, disparadores y acciones de escena, `account_link`, `source: "devices"`).
+`gladys_version` es `>=5.3.0` (widgets, disparadores y acciones de escena, `account_link`, `source: "devices"`; la reproducción musical en curso y las palabras clave del catálogo de Gladys 5.3).
 
 ## Release y convención de commits
 

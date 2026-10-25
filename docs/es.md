@@ -46,12 +46,15 @@ Para desvincular: botón **Desvincular la cuenta** y, si quieres, revoca el acce
 
 ## El dispositivo de un perfil
 
-| Funcionalidad               | Valor                                                                     |
-| --------------------------- | ------------------------------------------------------------------------- |
-| **Escuchando**              | 1 mientras suena una canción, 0 en caso contrario                         |
-| **Canción actual o última** | «Artista – Canción»; conserva la última canción cuando termina la escucha |
-| **Scrobbles de hoy**        | desde medianoche, en la zona horaria de Gladys                            |
-| **Scrobbles en total**      | desde la creación de la cuenta                                            |
+| Funcionalidad                                   | Valor                                                                                             |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| **Escuchando**                                  | 1 mientras suena una canción, 0 en caso contrario                                                 |
+| **Canción actual o última**                     | «Artista – Canción»; conserva la última canción cuando termina la escucha                         |
+| **Scrobbles de hoy**                            | desde medianoche, en la zona horaria de Gladys                                                    |
+| **Scrobbles en total**                          | desde la creación de la cuenta                                                                    |
+| **Título**, **Artista**, **Álbum**, **Portada** | la canción que suena ahora (funcionalidades de música de Gladys 5.3), vacías cuando no suena nada |
+
+Título, artista, álbum y portada aparecen en la tarjeta «Dispositivos de la habitación». No hay duración ni posición (Last.fm no las da), y la caja de música del panel no ofrece el perfil: no es un reproductor que se pueda controlar. Un dispositivo añadido antes de estas funcionalidades las obtiene con el botón **Actualizar** de la pestaña Descubrir.
 
 El historial se conserva: la tarjeta «Gráfico» del panel muestra por ejemplo tu semana de escuchas, y las escenas habituales sobre el valor de un dispositivo funcionan («más de 100 scrobbles hoy»…).
 

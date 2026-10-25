@@ -46,12 +46,15 @@ To unlink: the **Unlink the account** button, and optionally revoke the access i
 
 ## The device of a profile
 
-| Feature                   | Value                                                         |
-| ------------------------- | ------------------------------------------------------------- |
-| **Listening**             | 1 while a track is playing, 0 otherwise                       |
-| **Current or last track** | "Artist – Track"; keeps the last track once listening stopped |
-| **Scrobbles today**       | since midnight, in the Gladys time zone                       |
-| **Total scrobbles**       | since the account was created                                 |
+| Feature                                     | Value                                                                       |
+| ------------------------------------------- | --------------------------------------------------------------------------- |
+| **Listening**                               | 1 while a track is playing, 0 otherwise                                     |
+| **Current or last track**                   | "Artist – Track"; keeps the last track once listening stopped               |
+| **Scrobbles today**                         | since midnight, in the Gladys time zone                                     |
+| **Total scrobbles**                         | since the account was created                                               |
+| **Title**, **Artist**, **Album**, **Cover** | the track playing now (Gladys 5.3 music features), empty when nothing plays |
+
+Title, artist, album and cover are shown in the "Devices in the room" box. There is no duration nor position (Last.fm does not give them), and the dashboard music box does not offer the profile: it is not a player you can command. A device added before these features gets them with the **Update** button of the Discovery tab.
 
 History is kept: the dashboard "Chart" box shows your week of listening, and the usual scenes on a device value work ("more than 100 scrobbles today"…).
 

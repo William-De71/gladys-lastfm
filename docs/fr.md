@@ -46,12 +46,15 @@ Pour délier : bouton **Délier le compte**, et éventuellement révocation de l
 
 ## L'appareil d'un profil
 
-| Fonctionnalité                      | Valeur                                                                 |
-| ----------------------------------- | ---------------------------------------------------------------------- |
-| **En écoute**                       | 1 pendant qu'un titre est joué, 0 sinon                                |
-| **Titre en cours ou dernier titre** | « Artiste – Titre » ; garde le dernier titre une fois l'écoute arrêtée |
-| **Scrobbles du jour**               | depuis minuit, dans le fuseau horaire de Gladys                        |
-| **Scrobbles au total**              | depuis la création du compte                                           |
+| Fonctionnalité                                  | Valeur                                                                                       |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| **En écoute**                                   | 1 pendant qu'un titre est joué, 0 sinon                                                      |
+| **Titre en cours ou dernier titre**             | « Artiste – Titre » ; garde le dernier titre une fois l'écoute arrêtée                       |
+| **Scrobbles du jour**                           | depuis minuit, dans le fuseau horaire de Gladys                                              |
+| **Scrobbles au total**                          | depuis la création du compte                                                                 |
+| **Titre**, **Artiste**, **Album**, **Pochette** | le titre joué en ce moment (fonctionnalités musique de Gladys 5.3), vides quand rien ne joue |
+
+Titre, artiste, album et pochette s'affichent dans la carte « Appareils de la pièce ». Il n'y a ni durée ni position (Last.fm ne les donne pas), et la boîte musique du tableau de bord ne propose pas le profil : ce n'est pas un lecteur que l'on peut commander. Un appareil ajouté avant ces fonctionnalités les obtient avec le bouton **Mettre à jour** de l'onglet Découverte.
 
 L'historique est conservé : la carte « Graphique » du tableau de bord montre par exemple vos écoutes de la semaine, et les scènes classiques sur la valeur d'un appareil fonctionnent (« plus de 100 scrobbles aujourd'hui »…).
 

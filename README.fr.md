@@ -5,7 +5,7 @@
 [![Licence : Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-blue.svg)](LICENSE)
 [![Dernière version](https://img.shields.io/github/v/release/William-De71/gladys-lastfm?sort=semver)](https://github.com/William-De71/gladys-lastfm/releases)
 [![CI](https://img.shields.io/github/actions/workflow/status/William-De71/gladys-lastfm/release.yml?branch=main&label=CI)](https://github.com/William-De71/gladys-lastfm/actions/workflows/release.yml)
-[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.1.1-2f6fb5)](https://gladysassistant.com)
+[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.3.0-2f6fb5)](https://gladysassistant.com)
 
 ![Last.fm pour Gladys Assistant](cover.jpg)
 
@@ -43,12 +43,15 @@ Documentation utilisateur : [English](docs/en.md) · [Français](docs/fr.md) · 
 Un appareil par profil suivi (10 au maximum), proposé dans l'onglet Découverte, toutes les fonctionnalités en
 lecture seule :
 
-| Fonctionnalité                  | Catégorie / type             | Remarques                                              |
-| ------------------------------- | ---------------------------- | ------------------------------------------------------ |
-| En écoute                       | `music` / `playback_state`   | 1 pendant qu'un titre est joué                         |
-| Titre en cours ou dernier titre | `text` / `text`              | « Artiste – Titre », jamais vidé                       |
-| Scrobbles du jour               | `counter-sensor` / `integer` | depuis minuit, dans le fuseau horaire de Gladys (`TZ`) |
-| Scrobbles au total              | `counter-sensor` / `integer` | un compteur inconnu est omis, jamais publié à 0        |
+| Fonctionnalité                  | Catégorie / type                                | Remarques                                               |
+| ------------------------------- | ----------------------------------------------- | ------------------------------------------------------- |
+| En écoute                       | `music` / `playback_state`                      | 1 pendant qu'un titre est joué                          |
+| Titre en cours ou dernier titre | `text` / `text`                                 | « Artiste – Titre », jamais vidé                        |
+| Scrobbles du jour               | `counter-sensor` / `integer`                    | depuis minuit, dans le fuseau horaire de Gladys (`TZ`)  |
+| Scrobbles au total              | `counter-sensor` / `integer`                    | un compteur inconnu est omis, jamais publié à 0         |
+| Titre, Artiste, Album, Pochette | `music` / `title`, `artist`, `album`, `artwork` | lecture en cours de Gladys 5.3, vide quand rien ne joue |
+
+Les fonctionnalités `music` (depuis Gladys 5.3, `"music": {}`) passent par `publishNowPlaying`, seulement quand elles changent ; la pochette est servie derrière une clé par le SDK. Ni durée ni position (Last.fm ne les donne pas), et pas de boîte musique au tableau de bord : un profil n'est pas un lecteur qui obéit à lecture / pause. Un appareil créé avant les obtient avec le bouton **Mettre à jour** de l'onglet Découvrir.
 
 Identifiants externes : `ext:<selector>:user:<nom d'utilisateur en minuscules>[:<fonctionnalité>]`.
 
@@ -204,7 +207,7 @@ Node 22 ou plus. Les tests (`node --test`) ne touchent jamais au réseau. En plu
   de widget dans chacune ;
 - `test/release.test.js` couvre le script de release (version, changelog, montée de version).
 
-`gladys_version` vaut `>=5.1.1` (widgets, déclencheurs et actions de scène, `account_link`, `source: "devices"`).
+`gladys_version` vaut `>=5.3.0` (widgets, déclencheurs et actions de scène, `account_link`, `source: "devices"` ; lecture en cours musicale et mots-clés du catalogue de Gladys 5.3).
 
 ## Release et convention de commits
 

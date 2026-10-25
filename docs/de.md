@@ -46,12 +46,15 @@ Zum Trennen: Schaltfläche **Konto trennen**, und optional den Zugriff in deinen
 
 ## Das Gerät eines Profils
 
-| Funktion                         | Wert                                                                    |
-| -------------------------------- | ----------------------------------------------------------------------- |
-| **Hört gerade**                  | 1, solange ein Titel läuft, sonst 0                                     |
-| **Aktueller oder letzter Titel** | „Künstler – Titel“; behält den letzten Titel, wenn die Wiedergabe endet |
-| **Scrobbles heute**              | seit Mitternacht, in der Zeitzone von Gladys                            |
-| **Scrobbles insgesamt**          | seit der Erstellung des Kontos                                          |
+| Funktion                                       | Wert                                                                                |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------- |
+| **Hört gerade**                                | 1, solange ein Titel läuft, sonst 0                                                 |
+| **Aktueller oder letzter Titel**               | „Künstler – Titel“; behält den letzten Titel, wenn die Wiedergabe endet             |
+| **Scrobbles heute**                            | seit Mitternacht, in der Zeitzone von Gladys                                        |
+| **Scrobbles insgesamt**                        | seit der Erstellung des Kontos                                                      |
+| **Titel**, **Interpret**, **Album**, **Cover** | der gerade laufende Titel (Musikfunktionen von Gladys 5.3), leer, wenn nichts läuft |
+
+Titel, Interpret, Album und Cover erscheinen in der Karte „Geräte im Raum“. Dauer und Position gibt es nicht (Last.fm liefert sie nicht), und die Musikbox des Dashboards bietet das Profil nicht an: Es ist kein steuerbarer Player. Ein vor diesen Funktionen hinzugefügtes Gerät erhält sie mit der Schaltfläche **Aktualisieren** im Reiter Entdecken.
 
 Der Verlauf wird gespeichert: Die Dashboard-Karte „Diagramm“ zeigt zum Beispiel deine Woche, und die üblichen Szenen auf einen Gerätewert funktionieren („mehr als 100 Scrobbles heute“…).
 

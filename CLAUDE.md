@@ -51,6 +51,13 @@ docs/illustrations/render.sh        regenerates the widget illustrations (docs/a
   scene triggers (fields, variables) and scene actions (fields, outputs).
   `test/structure.test.js` compares them to `test/fixtures/discovery.baseline.json`:
   never update the baseline to make a test pass without a documented migration.
+- **Now playing** (Gladys 5.3.0, `"music": {}`): the `music_*` features go
+  through `gladys.publishNowPlaying` (diffed by the SDK) with
+  `featureExternalIds`, only for a created device that carries them (an older
+  one gets them through Discover → Update, hence `onDeviceUpdated`). The
+  playback state stays the `playing` feature of 1.0.0 (`max: 1` forever:
+  never IDLE 2). The artwork is the URL of a real Last.fm cover, served by
+  the default artwork handler of the SDK.
 - **The container rootfs is read-only.** Write only under `/data`. Never log
   the API key, the shared secret or the session key.
 - **Four languages.** Every user-facing text (manifest, runtime messages in

@@ -41,7 +41,15 @@ import {
 } from './src/lastfm-api.js';
 import { createWatcher } from './src/watcher.js';
 import { createAccountLinker } from './src/account.js';
-import { buildDevice, buildStates, idsOf, usernameFromExternalId } from './src/device.js';
+import {
+  FEATURE_KEYS,
+  buildDevice,
+  buildStates,
+  idsOf,
+  nowPlayingFeatureIds,
+  nowPlayingOf,
+  usernameFromExternalId,
+} from './src/device.js';
 import { buildSceneEvent } from './src/events.js';
 import { readTrack, readUser } from './src/tracks.js';
 import { imageUrlFromKey } from './src/images.js';
@@ -80,6 +88,9 @@ let config = normalizeConfig();
 let language = 'en';
 // Device external ids the user created (states are only published for them).
 let createdDevices = new Set();
+// Feature external ids of the created devices: a device created before the
+// music features (1.1.1 and older) gets them only through Discover → Update.
+let createdFeatures = new Set();
 // Last connection status sent, to send it again only when it changes.
 let lastStatus = null;
 
@@ -152,6 +163,9 @@ async function refreshCreatedDevices() {
   try {
     const devices = await gladys.getDevices();
     createdDevices = new Set(devices.map((device) => device.external_id));
+    createdFeatures = new Set(
+      devices.flatMap((device) => (device.features ?? []).map((feature) => feature.external_id)),
+    );
   } catch (err) {
     logger.warn(`Unable to read the devices: ${err.message}`);
   }
@@ -164,10 +178,17 @@ async function refreshCreatedDevices() {
  * @returns {Promise<void>}
  */
 async function publishStates(username, snapshot) {
-  if (!createdDevices.has(idsOf(gladys, username).device)) {
+  const ids = idsOf(gladys, username);
+  if (!createdDevices.has(ids.device)) {
     return;
   }
   await gladys.publishStates(buildStates(gladys, username, snapshot));
+  if (createdFeatures.has(ids.feature(FEATURE_KEYS.MUSIC_TITLE))) {
+    // Diffed by the SDK: an unchanged track sends nothing.
+    await gladys.publishNowPlaying(ids.device, nowPlayingOf(snapshot), {
+      featureExternalIds: nowPlayingFeatureIds(gladys, username),
+    });
+  }
 }
 
 // --- The watcher -----------------------------------------------------------------
@@ -582,7 +603,14 @@ gladys.onScanRequest(async () => {
   logger.info(`Scan: ${count} Last.fm profile(s) offered`);
 });
 
-gladys.onDeviceCreated(async (device) => {
+/**
+ * @description A device was created, or updated from the Discover tab (which
+ * may bring the music features to an older device): read the devices again
+ * and publish the states of the profile at once.
+ * @param {object} device - The device.
+ * @returns {Promise<void>}
+ */
+async function onDeviceSaved(device) {
   await refreshCreatedDevices();
   const username = usernameFromExternalId(device.external_id, config.usernames);
   const snapshot = username ? watcher.peek(username) : null;
@@ -595,7 +623,10 @@ gladys.onDeviceCreated(async (device) => {
     gladys.requestWidgetRefresh(WIDGETS.NOW_PLAYING);
     gladys.requestWidgetRefresh(WIDGETS.RECENT_TRACKS);
   }
-});
+}
+
+gladys.onDeviceCreated(onDeviceSaved);
+gladys.onDeviceUpdated(onDeviceSaved);
 
 gladys.onDeviceDeleted(refreshCreatedDevices);
 

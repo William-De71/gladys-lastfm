@@ -24,6 +24,22 @@ test('is a device integration, in lockstep with package.json', () => {
   assert.ok(manifest.docker_image.endsWith(`:${pkg.version}`));
 });
 
+test('Gladys 5.3.0: now playing only, catalog keywords, worldwide', () => {
+  assert.equal(manifest.gladys_version, '>=5.3.0');
+  // A Last.fm profile is not a player: no browse / search / queue / play.
+  assert.deepEqual(manifest.music, {});
+  const { keywords } = manifest;
+  assert.ok(Array.isArray(keywords) && keywords.length >= 1 && keywords.length <= 10);
+  for (const keyword of keywords) {
+    assert.ok(keyword.trim().length >= 2 && keyword.trim().length <= 30, keyword);
+  }
+  const normalized = keywords.map((keyword) => keyword.trim().toLowerCase());
+  assert.equal(new Set(normalized).size, normalized.length);
+  assert.ok(!normalized.includes(manifest.name.toLowerCase()));
+  // Last.fm is a worldwide service.
+  assert.equal(manifest.countries, undefined);
+});
+
 test('declares exactly the scene triggers, actions and widgets the code handles', () => {
   assert.deepEqual(
     manifest.scene_triggers.map((trigger) => trigger.key).sort(),

@@ -9,11 +9,13 @@ import {
   idsOf,
   FEATURE_KEYS,
   PLAYBACK_STATE,
+  nowPlayingOf,
+  nowPlayingFeatureIds,
 } from '../src/device.js';
 import { buildSceneEvent } from '../src/events.js';
 import { SCENE_TRIGGERS } from '../src/tracker.js';
 import { readTrack } from '../src/tracks.js';
-import { fakeGladys, rawTrack, NOW } from './helpers/fixtures.js';
+import { fakeGladys, rawTrack, NOW, COVER, STAR } from './helpers/fixtures.js';
 
 const track = readTrack(rawTrack({ playedAt: NOW, loved: true }));
 
@@ -135,4 +137,88 @@ test('keeps every event flat, scalar and bounded', () => {
       }
     });
   });
+});
+
+test('the music features of Gladys 5.3.0: read-only, no history, after those of 1.0.0', () => {
+  const device = buildDevice(fakeGladys, 'RJ', 'de');
+  const music = device.features.slice(4);
+  assert.deepEqual(
+    music.map((feature) => [feature.external_id, feature.category, feature.type]),
+    [
+      ['ext:lastfm:user:rj:music_title', 'music', 'title'],
+      ['ext:lastfm:user:rj:music_artist', 'music', 'artist'],
+      ['ext:lastfm:user:rj:music_album', 'music', 'album'],
+      ['ext:lastfm:user:rj:music_artwork', 'music', 'artwork'],
+    ],
+  );
+  assert.ok(music.every((feature) => feature.read_only && feature.keep_history === false));
+  assert.deepEqual(
+    music.map((feature) => feature.name),
+    ['Titel', 'Interpret', 'Album', 'Cover'],
+  );
+});
+
+test('the now playing: the track playing now, emptied when nothing plays', () => {
+  const playing = readTrack(rawTrack({ nowPlaying: true }));
+  assert.deepEqual(nowPlayingOf({ playing: true, current: playing }), {
+    title: 'One More Time',
+    artist: 'Daft Punk',
+    album: 'Discovery',
+    artwork_url: COVER,
+  });
+  const empty = { title: '', artist: '', album: '', artwork_url: null };
+  // The last track stays in the `now_playing` text, never in the music features.
+  assert.deepEqual(nowPlayingOf({ playing: false, current: null, last: track }), empty);
+  assert.deepEqual(nowPlayingOf({ playing: false, current: playing }), empty);
+  assert.deepEqual(nowPlayingOf(null), empty);
+  // The grey star of Last.fm is no cover.
+  const starred = readTrack(rawTrack({ nowPlaying: true, image: STAR }));
+  assert.equal(nowPlayingOf({ playing: true, current: starred }).artwork_url, null);
+});
+
+test('the now playing goes to the music_* features, never the SDK default ids', () => {
+  assert.deepEqual(nowPlayingFeatureIds(fakeGladys, 'rj'), {
+    title: 'ext:lastfm:user:rj:music_title',
+    artist: 'ext:lastfm:user:rj:music_artist',
+    album: 'ext:lastfm:user:rj:music_album',
+    artwork: 'ext:lastfm:user:rj:music_artwork',
+  });
+  assert.equal(usernameFromExternalId('ext:lastfm:user:rj:music_title', ['RJ']), 'RJ');
+});
+
+test('the SDK publishes the now playing once, then only what changed', async () => {
+  const gladys = new GladysIntegration({
+    selector: 'lastfm',
+    hostApiUrl: 'http://localhost',
+    token: 't',
+  });
+  const sent = [];
+  gladys.publishStates = async (states) => {
+    sent.push(states);
+    return { success: true };
+  };
+  const playing = readTrack(rawTrack({ nowPlaying: true }));
+  const options = { featureExternalIds: nowPlayingFeatureIds(gladys, 'rj') };
+  const device = idsOf(gladys, 'rj').device;
+  await gladys.publishNowPlaying(
+    device,
+    nowPlayingOf({ playing: true, current: playing }),
+    options,
+  );
+  await gladys.publishNowPlaying(
+    device,
+    nowPlayingOf({ playing: true, current: playing }),
+    options,
+  );
+  await gladys.publishNowPlaying(device, nowPlayingOf({ playing: false, current: null }), options);
+  assert.equal(sent.length, 2);
+  assert.deepEqual(
+    sent[0].map((state) => state.device_feature_external_id),
+    Object.values(options.featureExternalIds),
+  );
+  assert.equal(sent[0][3].text, gladys.artworkKey(COVER));
+  assert.deepEqual(
+    sent[1].map((state) => state.text),
+    ['', '', '', ''],
+  );
 });

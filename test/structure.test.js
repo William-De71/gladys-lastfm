@@ -5,7 +5,9 @@
 // saved configuration refers to.
 //
 // test/fixtures/discovery.baseline.json was generated from version 1.0.0,
-// before any change. A failure here means existing users would have to delete
+// before any change, then extended with the features added since (the
+// `music_*` now playing of Gladys 5.3.0): additions only, appended after the
+// features of 1.0.0, which are unchanged. A failure here means existing users would have to delete
 // and recreate a device, or would lose a scene or a widget setting: never
 // update the baseline without a documented migration.
 // -----------------------------------------------------------------------------

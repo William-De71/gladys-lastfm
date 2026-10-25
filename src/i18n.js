@@ -36,6 +36,10 @@ const TEXTS = {
     de: 'Scrobbles insgesamt',
     es: 'Scrobbles en total',
   },
+  featureMusicTitle: { en: 'Title', fr: 'Titre', de: 'Titel', es: 'Título' },
+  featureMusicArtist: { en: 'Artist', fr: 'Artiste', de: 'Interpret', es: 'Artista' },
+  featureMusicAlbum: { en: 'Album', fr: 'Album', de: 'Album', es: 'Álbum' },
+  featureMusicArtwork: { en: 'Cover', fr: 'Pochette', de: 'Cover', es: 'Portada' },
 
   // widgets
   listening: { en: 'Listening now', fr: 'En écoute', de: 'Hört gerade', es: 'Escuchando' },
