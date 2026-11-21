@@ -8,7 +8,9 @@ Last.fm registra («scrobblea») cada canción reproducida en Spotify, Deezer, A
 
 ## Configuración
 
-### 1. Crear una clave de API (gratuita)
+### 1. Crear una clave de API (requiere Last.fm Pro)
+
+> **Last.fm Pro es obligatorio desde el 1 de diciembre de 2026.** Last.fm solo acepta claves de API cuya cuenta propietaria tenga una suscripción a [Last.fm Pro](https://www.last.fm/pro): la clave de una cuenta gratuita se rechaza, y crear una clave nueva también requiere Pro. Solo la cuenta que posee la clave necesita Pro; los perfiles seguidos pueden seguir siendo gratuitos ([anuncio de Last.fm](https://support.last.fm/t/api-keys-will-require-pro-from-1st-december/121030)).
 
 1. Inicia sesión en Last.fm y abre [Crear una cuenta de API](https://www.last.fm/api/account/create).
 2. Escribe un nombre de aplicación (por ejemplo «Gladys») y una descripción. La **URL de callback puede quedar vacía**.
@@ -111,10 +113,10 @@ Last.fm ya no ofrece fotos de artistas desde 2019: el top de artistas se muestra
 
 ## Solución de problemas
 
-| Síntoma                           | Causa probable                                                                            |
-| --------------------------------- | ----------------------------------------------------------------------------------------- |
-| «Last.fm rechaza la clave de API» | clave mal copiada, o secreto compartido erróneo al vincular                               |
-| Un perfil no aparece en Descubrir | el nombre de usuario no existe (consulta los registros de la integración)                 |
-| «oculta sus escuchas recientes»   | el perfil activó la opción de privacidad correspondiente en Last.fm                       |
-| No pasa nada al escuchar          | el reproductor no hace scrobble: comprueba que la canción aparece en tu perfil de Last.fm |
-| El botón Conectar falla           | falta el secreto compartido: rellénalo y guarda antes de hacer clic                       |
+| Síntoma                           | Causa probable                                                                                                                                        |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| «Last.fm rechaza la clave de API» | clave mal copiada, secreto compartido erróneo al vincular, o (desde el 1 de diciembre de 2026) la cuenta propietaria de la clave no tiene Last.fm Pro |
+| Un perfil no aparece en Descubrir | el nombre de usuario no existe (consulta los registros de la integración)                                                                             |
+| «oculta sus escuchas recientes»   | el perfil activó la opción de privacidad correspondiente en Last.fm                                                                                   |
+| No pasa nada al escuchar          | el reproductor no hace scrobble: comprueba que la canción aparece en tu perfil de Last.fm                                                             |
+| El botón Conectar falla           | falta el secreto compartido: rellénalo y guarda antes de hacer clic                                                                                   |

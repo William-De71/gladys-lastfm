@@ -151,14 +151,14 @@ Dateisystem, OCI-Labels und das Manifest im Label `io.gladysassistant.manifest`.
 
 ## Konfiguration
 
-| Schlüssel       | Typ            | Hinweise                                                            |
-| --------------- | -------------- | ------------------------------------------------------------------- |
-| `api_key`       | `secret`       | Pflichtfeld, 32 Hexadezimalzeichen                                  |
-| `shared_secret` | `secret`       | nur für signierte Aufrufe (Verknüpfung, lieben / nicht mehr lieben) |
-| `usernames`     | `string`       | durch Kommas getrennt, nach den Regeln von Last.fm geprüft          |
-| `poll_interval` | `number`       | 15–300 s, Standard 30                                               |
-| `language`      | `select`       | `auto` (Standard), `en`, `fr`, `de`, `es`                           |
-| `account`       | `account_link` | Desktop-Authentifizierung von Last.fm                               |
+| Schlüssel       | Typ            | Hinweise                                                                            |
+| --------------- | -------------- | ----------------------------------------------------------------------------------- |
+| `api_key`       | `secret`       | Pflichtfeld, 32 Hexadezimalzeichen; Besitzerkonto braucht ab 2026-12-01 Last.fm Pro |
+| `shared_secret` | `secret`       | nur für signierte Aufrufe (Verknüpfung, lieben / nicht mehr lieben)                 |
+| `usernames`     | `string`       | durch Kommas getrennt, nach den Regeln von Last.fm geprüft                          |
+| `poll_interval` | `number`       | 15–300 s, Standard 30                                                               |
+| `language`      | `select`       | `auto` (Standard), `en`, `fr`, `de`, `es`                                           |
+| `account`       | `account_link` | Desktop-Authentifizierung von Last.fm                                               |
 
 Interne Schlüssel (außerhalb des Schemas): `session_key`, `session_user`, `last_language`.
 
@@ -235,13 +235,13 @@ flowchart LR
 
 ## Fehlerbehebung
 
-| Symptom                                     | Wahrscheinliche Ursache                                                            |
-| ------------------------------------------- | ---------------------------------------------------------------------------------- |
-| „Last.fm lehnt den API-Schlüssel ab“        | Schlüssel falsch kopiert, oder falsches gemeinsames Geheimnis beim Verknüpfen      |
-| Ein Profil fehlt im Reiter Entdecken        | der Benutzername existiert nicht (siehe Protokolle der Integration)                |
-| „verbirgt die zuletzt gehörten Titel“       | das Profil hat die entsprechende Datenschutzoption auf Last.fm aktiviert           |
-| Beim Hören passiert nichts                  | der Player scrobbelt nicht: Prüfe, ob der Titel in deinem Last.fm-Profil erscheint |
-| Gerätenamen oder Zusammenfassungen englisch | **Sprache der Texte** einstellen oder einmal ein Last.fm-Widget anzeigen           |
+| Symptom                                     | Wahrscheinliche Ursache                                                                                                                                |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| „Last.fm lehnt den API-Schlüssel ab“        | Schlüssel falsch kopiert, falsches gemeinsames Geheimnis beim Verknüpfen, oder (ab dem 1. Dezember 2026) das Konto des Schlüssels hat kein Last.fm Pro |
+| Ein Profil fehlt im Reiter Entdecken        | der Benutzername existiert nicht (siehe Protokolle der Integration)                                                                                    |
+| „verbirgt die zuletzt gehörten Titel“       | das Profil hat die entsprechende Datenschutzoption auf Last.fm aktiviert                                                                               |
+| Beim Hören passiert nichts                  | der Player scrobbelt nicht: Prüfe, ob der Titel in deinem Last.fm-Profil erscheint                                                                     |
+| Gerätenamen oder Zusammenfassungen englisch | **Sprache der Texte** einstellen oder einmal ein Last.fm-Widget anzeigen                                                                               |
 
 Ausführliche Protokolle: Umgebungsvariable `DEBUG=gladys-integration-sdk` am Container setzen.
 

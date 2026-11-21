@@ -72,10 +72,10 @@
         "es": "Clave de API"
       },
       "description": {
-        "en": "32 characters.",
-        "fr": "32 caractères.",
-        "de": "32 Zeichen.",
-        "es": "32 caracteres."
+        "en": "32 characters. From 1 December 2026, the account that owns the key needs Last.fm Pro.",
+        "fr": "32 caractères. À partir du 1er décembre 2026, le compte propriétaire de la clé doit être abonné à Last.fm Pro.",
+        "de": "32 Zeichen. Ab dem 1. Dezember 2026 braucht das Konto, dem der Schlüssel gehört, Last.fm Pro.",
+        "es": "32 caracteres. Desde el 1 de diciembre de 2026, la cuenta propietaria de la clave necesita Last.fm Pro."
       },
       "required": true
     },

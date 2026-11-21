@@ -8,7 +8,9 @@ Last.fm enregistre (« scrobble ») chaque titre écouté sur Spotify, Deezer, A
 
 ## Configuration
 
-### 1. Créer une clé d'API (gratuit)
+### 1. Créer une clé d'API (Last.fm Pro requis)
+
+> **Last.fm Pro obligatoire à partir du 1er décembre 2026.** Last.fm n'accepte plus que les clés d'API dont le compte propriétaire est abonné à [Last.fm Pro](https://www.last.fm/pro) : la clé d'un compte gratuit est refusée, et créer une nouvelle clé demande aussi Pro. Seul le compte qui possède la clé doit être abonné, les profils suivis peuvent rester gratuits ([annonce de Last.fm](https://support.last.fm/t/api-keys-will-require-pro-from-1st-december/121030)).
 
 1. Connectez-vous à Last.fm, puis ouvrez [Créer un compte d'API](https://www.last.fm/api/account/create).
 2. Renseignez un nom d'application (par exemple « Gladys ») et une description. L'**URL de callback peut rester vide**.
@@ -111,10 +113,10 @@ Last.fm ne fournit plus de photos d'artistes depuis 2019 : le top artistes s'aff
 
 ## Dépannage
 
-| Symptôme                                 | Cause probable                                                                                          |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| « Last.fm refuse la clé d'API »          | clé mal copiée, ou secret partagé erroné lors de la liaison                                             |
-| Un profil n'apparaît pas dans Découverte | nom d'utilisateur inexistant (voir les journaux de l'intégration)                                       |
-| « masque ses écoutes récentes »          | le profil a activé l'option de confidentialité correspondante sur Last.fm                               |
-| Rien ne se passe en écoutant             | le lecteur n'envoie pas ses écoutes à Last.fm : vérifiez que le titre apparaît sur votre profil Last.fm |
-| Le bouton Connecter échoue               | secret partagé manquant : renseignez-le et enregistrez avant de cliquer                                 |
+| Symptôme                                 | Cause probable                                                                                                                              |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| « Last.fm refuse la clé d'API »          | clé mal copiée, secret partagé erroné lors de la liaison, ou (à partir du 1er décembre 2026) compte propriétaire de la clé sans Last.fm Pro |
+| Un profil n'apparaît pas dans Découverte | nom d'utilisateur inexistant (voir les journaux de l'intégration)                                                                           |
+| « masque ses écoutes récentes »          | le profil a activé l'option de confidentialité correspondante sur Last.fm                                                                   |
+| Rien ne se passe en écoutant             | le lecteur n'envoie pas ses écoutes à Last.fm : vérifiez que le titre apparaît sur votre profil Last.fm                                     |
+| Le bouton Connecter échoue               | secret partagé manquant : renseignez-le et enregistrez avant de cliquer                                                                     |

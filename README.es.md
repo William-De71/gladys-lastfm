@@ -152,14 +152,14 @@ de solo lectura, etiquetas OCI y el manifiesto en la etiqueta `io.gladysassistan
 
 ## Configuración
 
-| Clave           | Tipo           | Notas                                                      |
-| --------------- | -------------- | ---------------------------------------------------------- |
-| `api_key`       | `secret`       | obligatoria, 32 caracteres hexadecimales                   |
-| `shared_secret` | `secret`       | solo para las llamadas firmadas (vinculación, favoritas)   |
-| `usernames`     | `string`       | separados por comas, validados según las reglas de Last.fm |
-| `poll_interval` | `number`       | 15–300 s, 30 por defecto                                   |
-| `language`      | `select`       | `auto` (por defecto), `en`, `fr`, `de`, `es`               |
-| `account`       | `account_link` | autenticación de escritorio de Last.fm                     |
+| Clave           | Tipo           | Notas                                                                                                 |
+| --------------- | -------------- | ----------------------------------------------------------------------------------------------------- |
+| `api_key`       | `secret`       | obligatoria, 32 caracteres hexadecimales; la cuenta propietaria necesita Last.fm Pro desde 2026-12-01 |
+| `shared_secret` | `secret`       | solo para las llamadas firmadas (vinculación, favoritas)                                              |
+| `usernames`     | `string`       | separados por comas, validados según las reglas de Last.fm                                            |
+| `poll_interval` | `number`       | 15–300 s, 30 por defecto                                                                              |
+| `language`      | `select`       | `auto` (por defecto), `en`, `fr`, `de`, `es`                                                          |
+| `account`       | `account_link` | autenticación de escritorio de Last.fm                                                                |
 
 Claves internas (fuera del esquema): `session_key`, `session_user`, `last_language`.
 
@@ -234,13 +234,13 @@ flowchart LR
 
 ## Solución de problemas
 
-| Síntoma                                       | Causa probable                                                                 |
-| --------------------------------------------- | ------------------------------------------------------------------------------ |
-| «Last.fm rechaza la clave de API»             | clave mal copiada, o secreto compartido erróneo al vincular                    |
-| Falta un perfil en Descubrir                  | el nombre de usuario no existe (consulta los registros de la integración)      |
-| «oculta sus escuchas recientes»               | el perfil activó la opción de privacidad correspondiente en Last.fm            |
-| No pasa nada al escuchar                      | el reproductor no hace scrobble: comprueba que la canción aparece en tu perfil |
-| Nombres de dispositivos o resúmenes en inglés | ajusta **Idioma de los textos**, o muestra una vez un widget de Last.fm        |
+| Síntoma                                       | Causa probable                                                                                                                                        |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| «Last.fm rechaza la clave de API»             | clave mal copiada, secreto compartido erróneo al vincular, o (desde el 1 de diciembre de 2026) la cuenta propietaria de la clave no tiene Last.fm Pro |
+| Falta un perfil en Descubrir                  | el nombre de usuario no existe (consulta los registros de la integración)                                                                             |
+| «oculta sus escuchas recientes»               | el perfil activó la opción de privacidad correspondiente en Last.fm                                                                                   |
+| No pasa nada al escuchar                      | el reproductor no hace scrobble: comprueba que la canción aparece en tu perfil                                                                        |
+| Nombres de dispositivos o resúmenes en inglés | ajusta **Idioma de los textos**, o muestra una vez un widget de Last.fm                                                                               |
 
 Registros detallados: variable de entorno `DEBUG=gladys-integration-sdk` en el contenedor.
 

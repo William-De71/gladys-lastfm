@@ -8,7 +8,9 @@ Last.fm zeichnet jeden Titel auf („scrobbelt“), der auf Spotify, Deezer, App
 
 ## Einrichtung
 
-### 1. API-Schlüssel anlegen (kostenlos)
+### 1. API-Schlüssel anlegen (Last.fm Pro erforderlich)
+
+> **Ab dem 1. Dezember 2026 ist Last.fm Pro erforderlich.** Last.fm akzeptiert nur noch API-Schlüssel, deren Besitzerkonto ein [Last.fm-Pro](https://www.last.fm/pro)-Abo hat: Der Schlüssel eines kostenlosen Kontos wird abgelehnt, und auch das Anlegen eines neuen Schlüssels erfordert Pro. Nur das Konto, dem der Schlüssel gehört, braucht Pro; die verfolgten Profile können kostenlos bleiben ([Ankündigung von Last.fm](https://support.last.fm/t/api-keys-will-require-pro-from-1st-december/121030)).
 
 1. Melde dich bei Last.fm an und öffne [API-Konto anlegen](https://www.last.fm/api/account/create).
 2. Gib einen Anwendungsnamen (z. B. „Gladys“) und eine Beschreibung ein. Die **Callback-URL kann leer bleiben**.
@@ -111,10 +113,10 @@ Last.fm liefert seit 2019 keine Künstlerfotos mehr: Die Top-Künstler erscheine
 
 ## Fehlerbehebung
 
-| Symptom                                 | Wahrscheinliche Ursache                                                            |
-| --------------------------------------- | ---------------------------------------------------------------------------------- |
-| „Last.fm lehnt den API-Schlüssel ab“    | Schlüssel falsch kopiert, oder falsches gemeinsames Geheimnis beim Verknüpfen      |
-| Ein Profil fehlt im Reiter Entdecken    | der Benutzername existiert nicht (siehe Protokolle der Integration)                |
-| „verbirgt die zuletzt gehörten Titel“   | das Profil hat die entsprechende Datenschutzoption auf Last.fm aktiviert           |
-| Beim Hören passiert nichts              | der Player scrobbelt nicht: Prüfe, ob der Titel in deinem Last.fm-Profil erscheint |
-| Die Schaltfläche Verbinden schlägt fehl | gemeinsames Geheimnis fehlt: Trage es ein und speichere vor dem Klicken            |
+| Symptom                                 | Wahrscheinliche Ursache                                                                                                                                |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| „Last.fm lehnt den API-Schlüssel ab“    | Schlüssel falsch kopiert, falsches gemeinsames Geheimnis beim Verknüpfen, oder (ab dem 1. Dezember 2026) das Konto des Schlüssels hat kein Last.fm Pro |
+| Ein Profil fehlt im Reiter Entdecken    | der Benutzername existiert nicht (siehe Protokolle der Integration)                                                                                    |
+| „verbirgt die zuletzt gehörten Titel“   | das Profil hat die entsprechende Datenschutzoption auf Last.fm aktiviert                                                                               |
+| Beim Hören passiert nichts              | der Player scrobbelt nicht: Prüfe, ob der Titel in deinem Last.fm-Profil erscheint                                                                     |
+| Die Schaltfläche Verbinden schlägt fehl | gemeinsames Geheimnis fehlt: Trage es ein und speichere vor dem Klicken                                                                                |

@@ -150,14 +150,14 @@ labels and the manifest as the `io.gladysassistant.manifest` label.
 
 ## Configuration
 
-| Key             | Type           | Notes                                                         |
-| --------------- | -------------- | ------------------------------------------------------------- |
-| `api_key`       | `secret`       | required, 32 hex characters                                   |
-| `shared_secret` | `secret`       | only for signed calls (account link, love/unlove)             |
-| `usernames`     | `string`       | comma separated, validated against the Last.fm username rules |
-| `poll_interval` | `number`       | 15–300 s, default 30                                          |
-| `language`      | `select`       | `auto` (default), `en`, `fr`, `de`, `es`                      |
-| `account`       | `account_link` | Last.fm desktop authentication                                |
+| Key             | Type           | Notes                                                                        |
+| --------------- | -------------- | ---------------------------------------------------------------------------- |
+| `api_key`       | `secret`       | required, 32 hex characters; owner account needs Last.fm Pro from 2026-12-01 |
+| `shared_secret` | `secret`       | only for signed calls (account link, love/unlove)                            |
+| `usernames`     | `string`       | comma separated, validated against the Last.fm username rules                |
+| `poll_interval` | `number`       | 15–300 s, default 30                                                         |
+| `language`      | `select`       | `auto` (default), `en`, `fr`, `de`, `es`                                     |
+| `account`       | `account_link` | Last.fm desktop authentication                                               |
 
 Internal keys (outside the schema): `session_key`, `session_user`, `last_language`.
 
@@ -233,13 +233,13 @@ CHANGE:` → major.
 
 ## Troubleshooting
 
-| Symptom                              | Likely cause                                                                     |
-| ------------------------------------ | -------------------------------------------------------------------------------- |
-| "Last.fm refuses the API key"        | key miscopied, or a wrong shared secret when linking                             |
-| A profile is missing from Discover   | the username does not exist (see the integration logs)                           |
-| "hides their recent listening"       | the profile enabled the matching privacy option on Last.fm                       |
-| Nothing happens while listening      | the player does not scrobble: check that the track shows on your Last.fm profile |
-| Device names or summaries in English | set **Language of the texts**, or open a Last.fm widget once                     |
+| Symptom                              | Likely cause                                                                                                                  |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| "Last.fm refuses the API key"        | key miscopied, a wrong shared secret when linking, or (from 1 December 2026) the account that owns the key has no Last.fm Pro |
+| A profile is missing from Discover   | the username does not exist (see the integration logs)                                                                        |
+| "hides their recent listening"       | the profile enabled the matching privacy option on Last.fm                                                                    |
+| Nothing happens while listening      | the player does not scrobble: check that the track shows on your Last.fm profile                                              |
+| Device names or summaries in English | set **Language of the texts**, or open a Last.fm widget once                                                                  |
 
 Detailed logs: set the environment variable `DEBUG=gladys-integration-sdk` on the container.
 

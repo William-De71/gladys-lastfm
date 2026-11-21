@@ -2,8 +2,10 @@
 // Configuration of the Last.fm integration.
 //
 // Fields of the config_schema:
-//   - `api_key`        the Last.fm API key (free, created in a minute on
+//   - `api_key`        the Last.fm API key (created on
 //                      last.fm/api/account/create) — required for everything;
+//                      from 1 December 2026 Last.fm only accepts a key whose
+//                      owner account has a Pro subscription;
 //   - `shared_secret`  the secret of that API account — only needed to link
 //                      an account (signed calls: "love" a track);
 //   - `usernames`      the Last.fm profiles to follow, separated by commas;

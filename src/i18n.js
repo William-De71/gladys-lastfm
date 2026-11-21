@@ -276,10 +276,10 @@ const TEXTS = {
     es: 'Conectado a Last.fm, cuenta {user} vinculada.',
   },
   statusInvalidKey: {
-    en: 'Last.fm refuses the API key: check it in the settings.',
-    fr: 'Last.fm refuse la clé d’API : vérifiez-la dans les réglages.',
-    de: 'Last.fm lehnt den API-Schlüssel ab: Prüfe ihn in der Konfiguration.',
-    es: 'Last.fm rechaza la clave de API: revísala en la configuración.',
+    en: 'Last.fm refuses the API key: check it in the settings. From 1 December 2026, a key only works if its Last.fm account has Pro.',
+    fr: 'Last.fm refuse la clé d’API : vérifiez-la dans les réglages. À partir du 1er décembre 2026, une clé ne fonctionne que si son compte Last.fm est abonné à Pro.',
+    de: 'Last.fm lehnt den API-Schlüssel ab: Prüfe ihn in der Konfiguration. Ab dem 1. Dezember 2026 funktioniert ein Schlüssel nur, wenn sein Last.fm-Konto Pro hat.',
+    es: 'Last.fm rechaza la clave de API: revísala en la configuración. Desde el 1 de diciembre de 2026, una clave solo funciona si su cuenta de Last.fm tiene Pro.',
   },
   statusUnreachable: {
     en: 'Last.fm cannot be reached; retrying.',

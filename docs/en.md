@@ -8,7 +8,9 @@ Last.fm records ("scrobbles") every track played on Spotify, Deezer, Apple Music
 
 ## Setup
 
-### 1. Create an API key (free)
+### 1. Create an API key (Last.fm Pro required)
+
+> **Last.fm Pro is required from 1 December 2026.** Last.fm only accepts API keys whose owner account has a [Last.fm Pro](https://www.last.fm/pro) subscription: the key of a free account is refused, and creating a new key also requires Pro. Only the account that owns the key needs Pro, the followed profiles can stay free ([Last.fm announcement](https://support.last.fm/t/api-keys-will-require-pro-from-1st-december/121030)).
 
 1. Sign in to Last.fm, then open [Create an API account](https://www.last.fm/api/account/create).
 2. Fill in an application name (e.g. "Gladys") and a description. The **callback URL can stay empty**.
@@ -111,10 +113,10 @@ Last.fm has not served artist pictures since 2019: the top artists show without 
 
 ## Troubleshooting
 
-| Symptom                             | Likely cause                                                                     |
-| ----------------------------------- | -------------------------------------------------------------------------------- |
-| "Last.fm refuses the API key"       | key miscopied, or a wrong shared secret when linking                             |
-| A profile is missing from Discovery | the username does not exist (see the integration logs)                           |
-| "hides their recent listening"      | the profile enabled the matching privacy option on Last.fm                       |
-| Nothing happens while listening     | the player does not scrobble: check that the track shows on your Last.fm profile |
-| The Connect button fails            | shared secret missing: fill it in and save before clicking                       |
+| Symptom                             | Likely cause                                                                                                                  |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| "Last.fm refuses the API key"       | key miscopied, a wrong shared secret when linking, or (from 1 December 2026) the account that owns the key has no Last.fm Pro |
+| A profile is missing from Discovery | the username does not exist (see the integration logs)                                                                        |
+| "hides their recent listening"      | the profile enabled the matching privacy option on Last.fm                                                                    |
+| Nothing happens while listening     | the player does not scrobble: check that the track shows on your Last.fm profile                                              |
+| The Connect button fails            | shared secret missing: fill it in and save before clicking                                                                    |
