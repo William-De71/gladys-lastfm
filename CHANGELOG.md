@@ -5,6 +5,12 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions
 follow [Semantic Versioning](https://semver.org/). This file is generated at
 each release from the Conventional Commits: do not edit it by hand.
 
+## [1.2.1] - 2026-11-21
+
+### Fixed
+
+- warn that Last.fm API keys need a Pro subscription from 1 December 2026 ([c2a89ae](https://github.com/William-De71/gladys-lastfm/commit/c2a89ae2882bbf3015f728074e2e4d83fd8eead5))
+
 ## [1.2.0] - 2026-10-25
 
 ### Added
@@ -33,6 +39,7 @@ each release from the Conventional Commits: do not edit it by hand.
 
 * Last.fm listening devices, music scene triggers and dashboard widgets ([4be2e7a](https://github.com/William-De71/gladys-lastfm/commit/4be2e7a4b5af79da115392d922579d3e46f31a35))
 
+[1.2.1]: https://github.com/William-De71/gladys-lastfm/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/William-De71/gladys-lastfm/compare/v1.1.1...v1.2.0
 [1.1.1]: https://github.com/William-De71/gladys-lastfm/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/William-De71/gladys-lastfm/compare/v1.0.0...v1.1.0
